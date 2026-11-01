@@ -197,28 +197,28 @@ body.nocursor #prompter{cursor:none}
 #dimTop,#pvDimTop{top:0;height:calc(var(--mkY) - var(--mkH) / 2);background:var(--dim)}
 #dimBot,#pvDimBot{top:calc(var(--mkY) + var(--mkH) / 2);bottom:0;background:var(--dim)}
 #band,#pvBand{top:calc(var(--mkY) - var(--mkH) / 2);height:var(--mkH);background:color-mix(in srgb,var(--mk) 12%,transparent)}
-#hud{position:absolute;width:max-content;left:50%;bottom:calc(52px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);z-index:4;display:flex;flex-wrap:nowrap;align-items:center;gap:2px;max-width:calc(100% - 16px);overflow-x:auto;padding:4px 6px 24px;border-radius:6px;background:var(--panel);border:1px solid var(--line);color:var(--ink);box-shadow:0 10px 30px -10px rgba(0,0,0,.6);transition:opacity .2s,transform .2s;scrollbar-width:none;cursor:default}
-#hud::-webkit-scrollbar{display:none}
+:is(#hud,#rBar2){position:absolute;width:max-content;left:50%;bottom:calc(52px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);z-index:4;display:flex;flex-wrap:nowrap;align-items:center;gap:2px;max-width:calc(100% - 16px);overflow-x:auto;padding:4px 6px 24px;border-radius:6px;background:var(--panel);border:1px solid var(--line);color:var(--ink);box-shadow:0 10px 30px -10px rgba(0,0,0,.6);transition:opacity .2s,transform .2s;scrollbar-width:none;cursor:default}
+:is(#hud,#rBar2)::-webkit-scrollbar{display:none}
 .hprog{position:absolute;left:10px;right:10px;bottom:0;height:22px;cursor:pointer;touch-action:none}
 .hprog::before{content:"";position:absolute;left:0;right:0;bottom:9px;height:4px;border-radius:2px;background:var(--line)}
 .hprog i{position:absolute;left:0;right:0;bottom:9px;height:4px;border-radius:2px;background:linear-gradient(90deg,#2fe0c0,#7c6cff);transform-origin:left;transform:scaleX(0)}
-#hud.noprog{padding-bottom:4px}
-#hud.noprog .hprog{display:none}
+:is(#hud,#rBar2).noprog{padding-bottom:4px}
+:is(#hud,#rBar2).noprog .hprog{display:none}
 body.noprog .rprog{display:none!important}
 #hud:not(.open){opacity:0;pointer-events:none;transform:translate(-50%,10px)}
-#hud .ib{width:28px;height:28px;flex:none;color:var(--ink);border-radius:3px}
-#hud .ib i{width:15px;height:15px}
-#hud .ib:hover{background:var(--hover)}
-#hud .ib.on{background:var(--amber);color:#1a1200}
-#hud .play{width:auto;min-width:58px;height:30px;padding:0 8px;gap:5px;border-radius:4px;background:var(--teal);color:#06231d}
-#hud .play:hover{background:#5df0d6}
-#hud .play i{width:16px;height:16px}
-#hud .grpx{display:flex;align-items:center;flex:none;gap:1px;padding:0 5px;border-left:1px solid var(--line)}
-#hud .grpx:first-child{border-left:0}
-#hud .grpx>i[data-ic]{width:14px;height:14px}
-#hud .val{min-width:26px;text-align:center;font-weight:800;font-size:12.5px;font-variant-numeric:tabular-nums}
-#hud .meta{min-width:76px;text-align:center;font-weight:700;font-size:12px;white-space:nowrap;font-variant-numeric:tabular-nums}
-#hud .meta small{color:var(--mute);font-weight:600;font-size:11px;margin-left:4px}
+:is(#hud,#rBar2) .ib{width:28px;height:28px;flex:none;color:var(--ink);border-radius:3px}
+:is(#hud,#rBar2) .ib i{width:15px;height:15px}
+:is(#hud,#rBar2) .ib:hover{background:var(--hover)}
+:is(#hud,#rBar2) .ib.on{background:var(--amber);color:#1a1200}
+:is(#hud,#rBar2) .play{width:auto;min-width:58px;height:30px;padding:0 8px;gap:5px;border-radius:4px;background:var(--teal);color:#06231d}
+:is(#hud,#rBar2) .play:hover{background:#5df0d6}
+:is(#hud,#rBar2) .play i{width:16px;height:16px}
+:is(#hud,#rBar2) .grpx{display:flex;align-items:center;flex:none;gap:1px;padding:0 5px;border-left:1px solid var(--line)}
+:is(#hud,#rBar2) .grpx:first-child{border-left:0}
+:is(#hud,#rBar2) .grpx>i[data-ic]{width:14px;height:14px}
+:is(#hud,#rBar2) .val{min-width:26px;text-align:center;font-weight:800;font-size:12.5px;font-variant-numeric:tabular-nums}
+:is(#hud,#rBar2) .meta{min-width:76px;text-align:center;font-weight:700;font-size:12px;white-space:nowrap;font-variant-numeric:tabular-nums}
+:is(#hud,#rBar2) .meta small{color:var(--mute);font-weight:600;font-size:11px;margin-left:4px}
 #hudToggle{position:absolute;right:12px;bottom:calc(10px + env(safe-area-inset-bottom,0px));z-index:5;width:36px;height:26px;border-radius:5px;border:1px solid var(--line);background:var(--panel);color:var(--ink);display:inline-flex;align-items:center;justify-content:center;opacity:.5;transition:opacity .25s}
 #hudToggle:hover,#hudToggle.active{opacity:1}
 #hudToggle.idle{opacity:0}
@@ -227,19 +227,19 @@ body.noprog .rprog{display:none!important}
 #bmPanel,#hud,body.reading #settings{scrollbar-color:var(--line) transparent}
 /* ---- Контролен панел при четене (Android и Windows) +20%, ред 1 = скорост и размер, ред 2 = в началото, старт, маркер, отметки, настройки ---- */
 .brk,#xExit{display:none}
-body #hud{zoom:1.2;flex-wrap:wrap;justify-content:center;overflow:visible;width:calc(100% - 16px);max-width:520px;row-gap:6px}
+body :is(#hud,#rBar2){zoom:1.2;flex-wrap:wrap;justify-content:center;overflow:visible;width:calc(100% - 16px);max-width:520px;row-gap:6px}
 body #hud #hMk,body #hud #hMH,body #hud #hMV,body #hud #hFull,body #hud #hExit,body #hud .grpx.gm,body #hud .grpx.gt{display:none}
 /* бутоните запълват панела: горе скорост и размер (по половина), долу старт, отметки/настройки, в началото (най-вдясно) */
-body #hud .grpx.g1{display:contents}
-body #hud .grpx.r1{flex:1 1 0;min-width:0;justify-content:space-around;padding:0 4px;border-left:0;order:0}
-body #hud .grpx.r1+.grpx.r1{border-left:1px solid var(--line)}
-body #hud #hPlay{order:2;flex:2 1 0;width:auto;min-width:0}
-body #hud .grpx.r2{order:3;flex:2 1 0;min-width:0;padding:0}
-body #hud .grpx.r2 .ib{flex:1 1 0;width:auto;min-width:0}
-body #hud #hHome{order:4;flex:1 1 0;width:auto;min-width:0}
-body #hud #hPlay,body #hud #hHome,body #hud .grpx.r2 .ib{height:42px}
-body #hud .grpx{order:2}
-body #hud .brk{display:block;flex:0 0 100%;height:0;order:1}
+body :is(#hud,#rBar2) .grpx.g1{display:contents}
+body :is(#hud,#rBar2) .grpx.r1{flex:1 1 0;min-width:0;justify-content:space-around;padding:0 4px;border-left:0;order:0}
+body :is(#hud,#rBar2) .grpx.r1+.grpx.r1{border-left:1px solid var(--line)}
+body :is(#hud,#rBar2) :is(#hPlay,#r2Play){order:2;flex:2 1 0;width:auto;min-width:0}
+body :is(#hud,#rBar2) .grpx.r2{order:3;flex:2 1 0;min-width:0;padding:0}
+body :is(#hud,#rBar2) .grpx.r2 .ib{flex:1 1 0;width:auto;min-width:0}
+body :is(#hud,#rBar2) :is(#hHome,#r2Home){order:4;flex:1 1 0;width:auto;min-width:0}
+body :is(#hud,#rBar2) :is(#hPlay,#r2Play,#hHome,#r2Home),body :is(#hud,#rBar2) .grpx.r2 .ib{height:42px}
+body :is(#hud,#rBar2) .grpx{order:2}
+body :is(#hud,#rBar2) .brk{display:block;flex:0 0 100%;height:0;order:1}
 body #xExit{display:inline-flex;position:absolute;top:calc(12px + env(safe-area-inset-top,0px));right:12px;z-index:5;width:48px;height:48px;align-items:center;justify-content:center;border-radius:6px;background:rgba(14,17,40,.55);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,.12);color:#e9ecff;box-shadow:0 10px 30px -10px rgba(0,0,0,.6);transition:opacity .25s,background .15s}
 body #xExit i{width:22px;height:22px}
 body #xExit:active{background:rgba(255,255,255,.14)}
@@ -314,13 +314,26 @@ body.tauri .touch-only{display:none!important}
 #remote{position:relative;flex:none;display:flex;flex-direction:column;gap:6px;padding:8px;border-radius:6px;background:rgba(14,17,40,.94);color:#e9ecff;border:1px solid rgba(255,255,255,.14)}
 #remote[hidden]{display:none}
 #remote.active{border-color:var(--teal);box-shadow:0 0 10px -2px rgba(47,224,192,.3)}
-#remote .ib{width:30px;height:30px;color:#e9ecff;border-radius:5px}
-#remote .ib:hover{background:rgba(255,255,255,.14)}
-#remote .ib i{width:16px;height:16px}
-#remote .play{width:auto;min-width:58px;height:34px;padding:0 10px;gap:6px;border-radius:4px;background:var(--teal);color:#06231d}
-#remote .play:hover{background:#5df0d6}
+#remote #rBar2{position:relative;left:auto;bottom:auto;transform:none;opacity:1;pointer-events:auto;z-index:auto;margin:0 auto;flex:none}
+/* старите контроли на дистанционното са заменени от същия панел като при цял екран */
+#remote .rbar,#remote .rprog{display:none!important}
+#remote{background:none;border:0;padding:0;box-shadow:none;gap:10px}
+#remote.active #pv{box-shadow:0 0 0 2px var(--teal),0 0 14px -2px rgba(47,224,192,.45)}
+body.rc #remote{background:none;border:0;padding:0;margin:8px 10px}
+/* цял екран и затваряне: върху превюто, както „X“ при цял екран */
+#pvTools{position:absolute;top:8px;right:8px;z-index:6;display:flex;gap:6px}
+#remote #pvTools .ib{width:36px;height:36px;border-radius:6px;background:rgba(14,17,40,.55);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,.12);color:#e9ecff;box-shadow:0 10px 30px -10px rgba(0,0,0,.6)}
+#remote #pvTools .ib i{width:18px;height:18px}
+#remote #pvTools .ib:hover{background:rgba(255,255,255,.14)}
+body:not(.rc) #pvTools #rFull{display:none}
+#remote .rbar .ib{width:30px;height:30px;color:#e9ecff;border-radius:5px}
+#remote .rbar .ib:hover{background:rgba(255,255,255,.14)}
+#remote .rbar .ib i{width:16px;height:16px}
+#remote .rbar .play{width:auto;min-width:58px;height:34px;padding:0 10px;gap:6px;border-radius:4px;background:var(--teal);color:#06231d}
+#remote .rbar .play:hover{background:#5df0d6}
 .rbar{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:6px}
 #remote .rg{display:flex;align-items:center;gap:2px;padding-left:8px;border-left:1px solid rgba(255,255,255,.14)}
+
 #remote .rg > i{width:14px;height:14px;color:#98a0d4;margin-right:2px}
 #remote .rbar b{min-width:30px;text-align:center;font-size:12.5px;font-variant-numeric:tabular-nums}
 .rprog{position:relative;height:14px;cursor:pointer}
@@ -347,9 +360,9 @@ body.tauri .touch-only{display:none!important}
 .rm-aim{position:absolute;inset:18%;border:3px solid rgba(47,224,192,.9);border-radius:12px;box-shadow:0 0 0 999px rgba(0,0,0,.35);pointer-events:none}
 /* ---------- Режим „дистанционно“ на малък екран: превю горе, контроли долу ---------- */
 @media (hover:none) and (pointer:coarse){
-  #remote .ib{width:44px;height:44px}
-  #remote .ib i{width:20px;height:20px}
-  #remote .play{height:46px;min-width:76px}
+  #remote .rbar .ib{width:44px;height:44px}
+  #remote .rbar .ib i{width:20px;height:20px}
+  #remote .rbar .play{height:46px;min-width:76px}
   .rprog{height:26px}.rprog::before,.rprog i{top:11px}
 }
 #rvBox{position:fixed;inset:0;z-index:300;background:#000}
@@ -631,14 +644,39 @@ body.viewer .top,body.viewer .fmt,body.viewer #bmSide,body.viewer .stagewrap,bod
       <div id="editor" class="doc" contenteditable="true" spellcheck="true" lang="bg" aria-label="Текст за телепромптъра"></div>
       <div id="pvGrip" hidden title="Влачете, за да оразмерите редактора и превюто. Двоен клик: автоматично."></div>
       <div id="remote" hidden>
-  <div id="pvWrap"><div id="pv"><div id="pvStage"><div id="pvScroller"><div id="pvText"></div></div><div class="dim" id="pvDimTop"></div><div class="dim" id="pvDimBot"></div><div id="pvBand"></div></div></div></div>
+  <div id="pvWrap"><div id="pv"><div id="pvStage"><div id="pvScroller"><div id="pvText"></div></div><div class="dim" id="pvDimTop"></div><div class="dim" id="pvDimBot"></div><div id="pvBand"></div></div></div>
+    <div id="pvTools"><button class="ib" id="rFull" title="Цял екран на дистанционното"><i data-ic="max"></i></button><button class="ib" id="rClose" title="Затвори прозореца"><i data-ic="x"></i></button></div></div>
+  <div id="rBar2" class="open">
+    <div class="grpx g1">
+      <button class="ib" id="r2Home" title="В началото (Home)"><i data-ic="home"></i></button>
+      <button class="ib play" id="r2Play" title="Старт / пауза (Space)"><i data-ic="play"></i><i class="spc" data-ic="space"></i></button>
+    </div>
+    <div class="hprog" id="r2Prog" title="Прогрес"><i id="r2ProgFill"></i></div>
+    <div class="grpx r1" title="Скорост">
+      <i data-ic="gauge" style="margin:0 4px;color:#98a0d4"></i>
+      <button class="ib" id="r2SpdDn" title="По-бавно"><i data-ic="minus"></i></button>
+      <span class="val" id="r2Spd">15</span>
+      <button class="ib" id="r2SpdUp" title="По-бързо"><i data-ic="plus"></i></button>
+    </div>
+    <div class="grpx r1" title="Размер на текста">
+      <i data-ic="type" style="margin:0 4px;color:#98a0d4"></i>
+      <button class="ib" id="r2FsDn" title="По-малък (−)"><i data-ic="minus"></i></button>
+      <span class="val" id="r2Fs">64</span>
+      <button class="ib" id="r2FsUp" title="По-голям (+)"><i data-ic="plus"></i></button>
+    </div>
+    <i class="brk"></i>
+    <div class="grpx r2">
+      <button class="ib" id="r2ScPrev" title="Предишен скрипт (P)" hidden><i data-ic="prevS"></i></button>
+      <button class="ib" id="r2ScNext" title="Следващ скрипт (N)" hidden><i data-ic="nextS"></i></button>
+      <button class="ib" id="r2Bm" data-vt="bm" title="Отметки (B)"><i data-ic="bookmark"></i></button>
+      <button class="ib" id="r2Set" data-vt="set" title="Настройки (S)"><i data-ic="sliders"></i></button>
+    </div>
+  </div>
   <div class="rprog" id="rProg" title="Прогрес"><i id="rProgFill"></i></div>
   <div class="rbar">
     <button class="ib play" id="rPlay" title="Старт / пауза (Space)"><i data-ic="play"></i><i class="spc" data-ic="space"></i></button>
     <div class="rg" title="Скорост"><i data-ic="gauge"></i><button class="ib" id="rSpdDn"><i data-ic="minus"></i></button><b id="rSpd">15</b><button class="ib" id="rSpdUp"><i data-ic="plus"></i></button></div>
     <div class="rg" title="Размер на текста"><i data-ic="type"></i><button class="ib" id="rFsDn"><i data-ic="minus"></i></button><b id="rFs">64</b><button class="ib" id="rFsUp"><i data-ic="plus"></i></button></div>
-        <button class="ib" id="rFull" title="Цял екран на дистанционното"><i data-ic="max"></i></button>
-        <button class="ib" id="rClose" title="Затвори прозореца"><i data-ic="x"></i></button>
   </div>
 </div>
       <div class="foot" id="foot"></div>
@@ -1389,7 +1427,7 @@ function applyStyles(){
   stageXf();
   prompter.classList.toggle('mk',S.marker);
   $('#editor').spellcheck=!!S.spell;
-  hud.classList.toggle('noprog',!S.progress);document.body.classList.toggle('noprog',!S.progress);
+  hud.classList.toggle('noprog',!S.progress);$('#rBar2').classList.toggle('noprog',!S.progress);document.body.classList.toggle('noprog',!S.progress);
   applyTheme();
   try{if(pvRendered)layoutPreview()}catch(e){}
   if(reading){layout();pos=frac*maxPos;draw(true)}
@@ -1980,13 +2018,15 @@ function renderScripts(){
     row.addEventListener('click',()=>{scLoad(i);toggleBm(false)});
     rb.appendChild(row);
   });
-  const multi=SC.length>1;$('#hScPrev').hidden=!multi;$('#hScNext').hidden=!multi;
+  const multi=SC.length>1;$('#hScPrev').hidden=!multi;$('#hScNext').hidden=!multi;$('#r2ScPrev').hidden=!multi;$('#r2ScNext').hidden=!multi;
 }
 if(!VIEWER){
   $('#scAdd').addEventListener('click',scAddEmpty);
   $('#scSaveAs').addEventListener('click',scSaveAsNew);
   $('#hScPrev').addEventListener('click',()=>scStep(-1));
   $('#hScNext').addEventListener('click',()=>scStep(1));
+  $('#r2ScPrev').addEventListener('click',()=>scStep(-1));
+  $('#r2ScNext').addEventListener('click',()=>scStep(1));
 }
 
 /* ---------- Файлове ---------- */
@@ -2627,6 +2667,9 @@ function updateRemote(){
   setIcon($('#rPlay i'),remoteSt.playing?'pause':'play');
   $('#rProgFill').style.transform=`scaleX(${remoteSt.frac||0})`;
   setTxt($('#rSpd'),S.speed);setTxt($('#rFs'),S.fs);
+  setIcon($('#r2Play i'),remoteSt.playing?'pause':'play');
+  setTxt($('#r2Spd'),S.speed);setTxt($('#r2Fs'),S.fs);
+  $('#r2ProgFill').style.transform=`scaleX(${Math.min(1,Math.max(0,remoteSt.frac||0))})`;
 }
 setInterval(()=>{if(VIEWER)return;if(popupWin&&popupWin.closed){popupWin=null;remoteSeen=-1e9;if(netCtl){netSt=null;netSeq++;netDirty=true;netCtl=false;lastNet=null}}updateRemote();updateOpenLabel()},500);
 if(IS_TAURI&&!VIEWER)setInterval(()=>{if(popupWin&&!popupWin.closed)tinvoke('reader_open').then(o=>{if(!o&&popupWin)popupWin.closed=true}).catch(()=>{})},700);
@@ -2885,6 +2928,20 @@ if(!IS_TAURI&&!VIEWER){
 }
 applyView();
 $('#rPlay').addEventListener('click',remotePlay);
+$('#r2Play').addEventListener('click',remotePlay);
+$('#r2Home').addEventListener('click',()=>post({type:'cmd',cmd:'home'}));
+$('#r2SpdDn').addEventListener('click',()=>bump('speed',-5));
+$('#r2SpdUp').addEventListener('click',()=>bump('speed',5));
+$('#r2FsDn').addEventListener('click',()=>bump('fs',-1));
+$('#r2FsUp').addEventListener('click',()=>bump('fs',1));
+{
+  /* прогрес: клик и влачене, както в панела при цял екран */
+  const pr=$('#r2Prog');let dragging=false;
+  const seekR=e=>{const r=pr.getBoundingClientRect();post({type:'cmd',cmd:'seek',arg:Math.min(1,Math.max(0,(e.clientX-r.left)/r.width))})};
+  pr.addEventListener('pointerdown',e=>{dragging=true;try{pr.setPointerCapture(e.pointerId)}catch(_){}seekR(e)});
+  pr.addEventListener('pointermove',e=>{if(dragging)seekR(e)});
+  pr.addEventListener('pointerup',()=>{dragging=false});
+}
 {
   /* същото поведение като във втория прозорец: клик по средата = старт/пауза; горен/долен ръб = забавя/ускорява при двоен клик */
   let tapT=0,tapZone=0,tapTimer=0;
