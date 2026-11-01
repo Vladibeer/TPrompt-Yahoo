@@ -42,7 +42,7 @@
           "English"
         ],
         "displayLanguageSelector": false,
-        "installMode": "currentUser",
+        "installMode": "perMachine",
         "installerIcon": "icons/icon.ico"
       }
     }
