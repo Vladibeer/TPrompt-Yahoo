@@ -183,6 +183,8 @@ input[type=range]:focus-visible::-webkit-slider-thumb{box-shadow:0 0 0 3px var(-
 #prompter[hidden]{display:none}
 body.nocursor #prompter{cursor:none}
 #stage{position:absolute;inset:0}
+#stage.fit{box-shadow:0 0 0 1px rgba(128,128,128,.45)}
+#prompter.rot{inset:auto;left:50%;top:50%;transform:translate(-50%,-50%) rotate(90deg)}
 #viewport{position:absolute;inset:0;overflow:hidden}
 #scroller{will-change:transform;position:relative}
 #textcol{width:var(--pw);margin:0 auto;font-family:var(--pfont);font-size:var(--pfs);line-height:var(--plh);color:var(--pcolor);word-wrap:break-word}
@@ -511,7 +513,15 @@ body.viewer .top,body.viewer .fmt,body.viewer #bmSide,body.viewer .stagewrap,bod
 .ctlhead>i[data-ic]{width:34px;height:34px;color:var(--teal);margin-top:2px}
 .ctlhead b{display:block;font-size:19px;font-weight:800;margin-bottom:4px}
 .ctlsub{margin:0;color:var(--mute);line-height:1.5}
-.ctlfoot{display:flex;justify-content:flex-end}
+.ctlfoot{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:12px}
+.ctlfoot>#ctlTake{grid-column:3;justify-self:end}
+.ctlctl{grid-column:2;display:flex;gap:6px;align-items:center}
+.ctlctl .ib{width:44px;height:44px;border:1px solid var(--line);background:var(--panel2);border-radius:4px;color:var(--ink)}
+.ctlctl .ib:hover{background:var(--hover)}
+.ctlctl .ib svg{width:20px;height:20px}
+.ctlctl .ib.play{width:68px;background:var(--teal);border-color:var(--teal);color:#06231d}
+.ctlctl .ib.play:hover{filter:brightness(1.08);background:var(--teal)}
+@media(max-width:640px){.ctlfoot{grid-template-columns:1fr}.ctlctl,.ctlfoot>#ctlTake{grid-column:1;justify-self:center}}
 #ctlPvWrap{display:flex;justify-content:center;min-height:0}
 #ctlPv{position:relative;flex:none;overflow:hidden;background:var(--pbg,#000);border-radius:3px;border:1px solid var(--line)}
 #ctlStage{position:absolute;left:0;top:0;transform-origin:0 0;overflow:hidden}
@@ -830,9 +840,10 @@ body.viewer .top,body.viewer .fmt,body.viewer #bmSide,body.viewer .stagewrap,bod
 <h4>Кой управлява</h4>
 <p>Във всеки момент текстът се управлява от <b>едно</b> устройство, за да не се разминават двата текста.</p>
 <ul>
-<li>Когато от телефона натиснете „Покажи на компютъра“, главният прозорец на компютъра се заключва и показва текста на телефона само за четене с напредъка му. Всичко се управлява от телефона.</li>
-<li><b>Поеми управлението тук</b> затваря втория прозорец и връща редактора на компютъра. Телефонът получава съобщение и излиза от дистанционния режим.</li>
+<li>Когато от телефона натиснете „Покажи на компютъра“, главният прозорец на компютъра се заключва и показва текста на телефона само за четене с напредъка му. Всичко се управлява от телефона, а под превюто има бутони за начало, отметки, старт/пауза и край (Space, ←, →, Home, End). Скоростта и размерът се сменят само от телефона.</li>
+<li><b>Спри дистанционното</b> затваря втория прозорец и връща редактора на компютъра. Телефонът получава съобщение и излиза от дистанционния режим.</li>
 <li>Когато от компютъра натиснете „Покажи на телефона“, телефонът само показва, а управлява компютърът.</li>
+<li>Бутонът за цял екран в дистанционното на телефона показва текста като на екрана четец: със същото съотношение и същата ориентация (например 16:9 хоризонтално). Излишното място по краищата остава празно.</li>
 </ul>
 <h4>Скриптове</h4>
 <p>Скрипт е отделен текст, например „Новини“ и „Спорт“ в една емисия. Библиотеката е най-горе в левия панел.</p>
@@ -910,9 +921,10 @@ body.viewer .top,body.viewer .fmt,body.viewer #bmSide,body.viewer .stagewrap,bod
 <h4>Who is in control</h4>
 <p>At any moment the text is controlled by <b>one</b> device, so the two texts never get out of step.</p>
 <ul>
-<li>When you press “Show on computer” on the phone, the computer's main window locks and shows the phone's text read-only with its progress. Everything is controlled from the phone.</li>
-<li><b>Take control here</b> closes the second window and brings the editor back on the computer. The phone gets a message and leaves remote mode.</li>
+<li>When you press “Show on computer” on the phone, the computer's main window locks and shows the phone's text read-only with its progress. Everything is controlled from the phone, and below the preview there are buttons for start, bookmarks, play/pause and end (Space, ←, →, Home, End). Speed and size are changed on the phone only.</li>
+<li><b>Stop Remote</b> closes the second window and brings the editor back on the computer. The phone gets a message and leaves remote mode.</li>
 <li>When you press “Show on phone” on the computer, the phone only displays and the computer is in control.</li>
+<li>The full-screen button in the phone's remote shows the text like the reader screen: same aspect ratio and orientation (for example 16:9 landscape). Spare space at the edges stays empty.</li>
 </ul>
 <h4>Scripts</h4>
 <p>A script is a separate text, for example “News” and “Sports” in one broadcast. The library is at the top of the left panel.</p>
@@ -1000,7 +1012,15 @@ body.viewer .top,body.viewer .fmt,body.viewer #bmSide,body.viewer .stagewrap,bod
   <div class="ctlcard">
     <div class="ctlhead"><i data-ic="phone"></i><div><b id="ctlTitle">Управлява се от телефон</b><p class="ctlsub">Текстът, скоростта и размерът идват от приложението на телефона.</p></div></div>
     <div id="ctlPvWrap"><div id="ctlPv"><div id="ctlStage"><div id="ctlScroller"><div id="ctlText"></div></div><div id="ctlMk"></div></div></div></div>
-    <div class="ctlfoot"><button class="btn" id="ctlTake" type="button"><i data-ic="monitor"></i><span>Поеми управлението тук</span></button></div>
+    <div class="ctlfoot">
+      <div class="ctlctl" role="group" aria-label="Управление">
+        <button class="ib" id="ctlHome" type="button" title="В началото (Home)"><i data-ic="home"></i></button>
+        <button class="ib" id="ctlPrev" type="button" title="Предишна отметка (←)"><i data-ic="ctlPrev"></i></button>
+        <button class="ib play" id="ctlPlay" type="button" title="Старт / пауза (Space)"><i data-ic="play"></i></button>
+        <button class="ib" id="ctlNext" type="button" title="Следваща отметка (→)"><i data-ic="ctlNext"></i></button>
+        <button class="ib" id="ctlEnd" type="button" title="В края (End)"><i data-ic="ctlEnd"></i></button>
+      </div>
+      <button class="btn" id="ctlTake" type="button"><i data-ic="x"></i><span>Спри дистанционното</span></button></div>
   </div>
 </div>
 <input type="file" id="file" hidden accept=".html,.htm,.txt,.md,.docx,.doc,.rtf">
@@ -1061,6 +1081,9 @@ const ICONS={
  link:'<path d="M10 13a5 5 0 0 0 7.5.5l3-3a5 5 0 0 0-7-7l-1.7 1.7"/><path d="M14 11a5 5 0 0 0-7.5-.5l-3 3a5 5 0 0 0 7 7l1.7-1.7"/>',
  help:'<circle cx="12" cy="12" r="10"/><path d="M9.1 9a3 3 0 0 1 5.8 1c0 2-3 3-3 3"/><path d="M12 17h.01"/>',
  keyboard:'<rect x="2" y="4" width="20" height="16" rx="2"/><path d="M6 8h.01M10 8h.01M14 8h.01M18 8h.01M8 12h.01M12 12h.01M16 12h.01M7 16h10"/>',
+ ctlPrev:'<path d="m15 18-6-6 6-6"/>',
+ ctlNext:'<path d="m9 18 6-6-6-6"/>',
+ ctlEnd:'<polygon points="5 4 15 12 5 20 5 4"/><line x1="19" x2="19" y1="5" y2="19"/>',
  nextS:'<path d="m6 17 5-5-5-5"/><path d="m13 17 5-5-5-5"/>',
  prevS:'<path d="m11 17-5-5 5-5"/><path d="m18 17-5-5 5-5"/>'
 };
@@ -1093,6 +1116,7 @@ let fromRemote=false;
 const VIEWER=location.hash==='#view'||window.__TP_VIEWER===true;
 const tauriInvoke=()=>(window.__TAURI__&&window.__TAURI__.core&&window.__TAURI__.core.invoke)||(window.__TAURI_INTERNALS__&&window.__TAURI_INTERNALS__.invoke)||null;
 const IS_TAURI=!!tauriInvoke();
+let fitSc=0,rcOrient='';   /* цял екран на дистанционното: мащаб на екрана четец (0 = не е вписан) и заключена ориентация */
 if(IS_TAURI)document.body.classList.add('tauri');
 const tinvoke=(c,a)=>tauriInvoke()(c,a||{});
 let netSend=null,txHook=null,rvOn=false;
@@ -1142,9 +1166,10 @@ let toastT=0;
 function toast(msg,err){const t=$('#toast');t.textContent=msg;t.classList.toggle('err',!!err);t.classList.add('show');clearTimeout(toastT);toastT=setTimeout(()=>t.classList.remove('show'),err?4200:2400)}
 
 const EN={
+'Управление':'Controls','Предишна отметка (←)':'Previous bookmark (←)','Следваща отметка (→)':'Next bookmark (→)','В края (End)':'To the end (End)',
 'Управлява се от телефон':'Controlled from the phone',
 'Текстът, скоростта и размерът идват от приложението на телефона.':'The text, speed and size come from the phone app.',
-'Поеми управлението тук':'Take control here',
+'Спри дистанционното':'Stop Remote',
 'Управлението е на този компютър.':'This computer is in control now.',
 'Компютърът пое управлението от телефона.':'The computer took control back from the phone.',
 'Скриптове':'Scripts','Запази като скрипт':'Save as a script','Нов скрипт':'New script',
@@ -1361,7 +1386,7 @@ function applyStyles(){
   r.setProperty('--pcolor',S.color);r.setProperty('--pbg',S.bg);r.setProperty('--pfont',fam(S.font));
   r.setProperty('--mk',S.markerColor);r.setProperty('--mkY',S.markerY+'%');r.setProperty('--mkH',S.markerH+'px');
   const [R,G,B]=hexRGB(S.bg);r.setProperty('--dim',`rgba(${R},${G},${B},${S.dim/100})`);
-  stage.style.transform=`scale(${S.mirrorH?-1:1},${S.mirrorV?-1:1})`;
+  stageXf();
   prompter.classList.toggle('mk',S.marker);
   $('#editor').spellcheck=!!S.spell;
   hud.classList.toggle('noprog',!S.progress);document.body.classList.toggle('noprog',!S.progress);
@@ -2113,6 +2138,7 @@ function buildPrompter(){
   bmEls=[...textcol.querySelectorAll('[data-bm]')];
 }
 function layout(){
+  if(rmFollow||fitSc)rcFit();
   const H=viewport.clientHeight;
   scroller.style.paddingTop=(H*S.markerY/100)+'px';
   scroller.style.paddingBottom=(H*(1-S.markerY/100))+'px';
@@ -2208,7 +2234,8 @@ function unlockScreen(){try{if(wl)wl.release()}catch(e){}wl=null}
 document.addEventListener('visibilitychange',()=>{if(reading&&document.visibilityState==='visible')lockScreen()});
 function stopReading(){unlockScreen();
   if(rmFollow){rmFollow=false;rcFull=false;setIcon($('#rFull i'),'max')}
-  reading=false;playing=false;prompter.hidden=true;document.body.classList.remove('reading','nocursor');
+  rcUnlockOrient();
+  reading=false;rcFit();playing=false;prompter.hidden=true;document.body.classList.remove('reading','nocursor');
   settings.classList.remove('open');bmPanel.classList.remove('open');$('#hBm').setAttribute('aria-pressed','false');setHud(false);
   if(fsOn())toggleFS(false);
 }
@@ -2648,7 +2675,7 @@ function onMsg(m){
         else{stale=true;m=Object.assign({},m,{playing:pendPlay.v})}
       }
       remoteSt=m;remoteSeen=performance.now();
-      if(m.W&&m.H&&(m.W!==pvDims.W||m.H!==pvDims.H)){pvDims={W:m.W,H:m.H};if(pvRendered)layoutPreview()}
+      if(m.W&&m.H&&(m.W!==pvDims.W||m.H!==pvDims.H)){pvDims={W:m.W,H:m.H};if(pvRendered)layoutPreview();rcRefit()}
       if(m.rate&&m.max)pvLastFr=m.rate/m.max;
       if(!stale)pvBase={frac:m.frac||0,fr:m.rate&&m.max?m.rate/m.max:0,ts:m.ts||Date.now()};
       updateRemote();
@@ -2742,6 +2769,46 @@ const narrowMQ=matchMedia('(max-width:900px)');
 let rcv='pv',rcWas=false,rcLiveWas=false,rcFull=false;
 /* дистанционно на цял екран: същият екран като „Цял екран“ (текст, панел за управление, отметки, настройки),
    но позицията следва втория прозорец на компютъра, а бутоните управляват него */
+/* Цял екран на дистанционното е точно копие на екрана четец: същият размер W×H (със същото пренасяне на редовете), вписан в екрана на телефона,
+   и същата ориентация (хоризонтална или вертикална). Ориентацията се заключва през плъгина на Android, а ако не се получи, се върти с CSS. */
+function stageXf(){
+  const mx=S.mirrorH?-1:1,my=S.mirrorV?-1:1;
+  stage.style.transform=fitSc?`translate(-50%,-50%) scale(${fitSc*mx},${fitSc*my})`:`scale(${mx},${my})`;
+}
+function rcRot(){
+  const W=pvDims.W||1280,H=pvDims.H||720;
+  const rot=(W>=H)!==(innerWidth>=innerHeight);
+  prompter.classList.toggle('rot',rot);
+  prompter.style.width=rot?innerHeight+'px':'';prompter.style.height=rot?innerWidth+'px':'';
+}
+function rcFit(){
+  if(reading&&rmFollow&&!VIEWER){
+    rcRot();
+    const W=pvDims.W||1280,H=pvDims.H||720,aw=prompter.clientWidth,ah=prompter.clientHeight;
+    if(!aw||!ah)return;
+    fitSc=Math.min(aw/W,ah/H);
+    Object.assign(stage.style,{inset:'auto',left:'50%',top:'50%',width:W+'px',height:H+'px'});
+    stage.classList.add('fit');
+  }else if(fitSc||prompter.classList.contains('rot')){
+    fitSc=0;stage.classList.remove('fit');
+    Object.assign(stage.style,{inset:'',left:'',top:'',width:'',height:''});
+    prompter.classList.remove('rot');prompter.style.width='';prompter.style.height='';
+  }
+  stageXf();
+}
+const scrOri=()=>window.Capacitor&&window.Capacitor.Plugins&&window.Capacitor.Plugins.ScreenOrientation;
+async function rcLockOrient(){
+  const want=(pvDims.W||1280)>=(pvDims.H||720)?'landscape':'portrait';
+  if(rcOrient===want)return;rcOrient=want;
+  try{const so=scrOri();if(so&&so.lock){await so.lock({orientation:want});return}}catch(e){}
+  try{if(screen.orientation&&screen.orientation.lock)await screen.orientation.lock(want)}catch(e){}
+}
+function rcUnlockOrient(){
+  if(!rcOrient)return;rcOrient='';
+  try{const so=scrOri();if(so&&so.unlock)so.unlock()}catch(e){}
+  try{if(screen.orientation&&screen.orientation.unlock)screen.orientation.unlock()}catch(e){}
+}
+function rcRefit(){if(!(reading&&rmFollow))return;const f=maxPos?pos/maxPos:0;rcLockOrient();layout();pos=f*maxPos;draw(true)}
 function setRcFull(on){
   on=!!on&&rcOn()&&remoteOn();
   if(on===rcFull)return;
@@ -2749,6 +2816,7 @@ function setRcFull(on){
     rmFollow=true;startReading(true);
     if(!reading){rmFollow=false;return}
     rcFull=true;
+    rcLockOrient();
   }else{
     rcFull=false;
     if(reading&&rmFollow){rmFollow=false;stopReading()}
@@ -3066,7 +3134,7 @@ const HOST=(()=>{
   function relay(m){
     if(!m||typeof m!=='object')return;
     if(m.type==='vmsg'){fromPhoneViewer(m.m);return}
-    if(performance.now()<takeUntil&&(m.type==='content'||m.type==='settings'||(m.type==='cmd'&&m.cmd!=='close')))return;   /* закъснели съобщения след „Поеми управлението“ */
+    if(performance.now()<takeUntil&&(m.type==='content'||m.type==='settings'||(m.type==='cmd'&&m.cmd!=='close')))return;   /* закъснели съобщения след „Спри дистанционното“ */
     if(m.type==='content'&&typeof m.html==='string'){
       delete m.id;lastNet=m;netCtl=true;
       if(popupWin&&!popupWin.closed)post(Object.assign({},m));else openPopup();
@@ -3226,6 +3294,7 @@ const CTL=(()=>{
     if(sg!==sig){sig=sg;applyVars();relayout=true}
     if(h!==shownHtml){shownHtml=h;txt.innerHTML=mirror(h);relayout=true}
     if(relayout)layout();
+    paintPlay();
   }
   function takeOver(){
     /* същото като при затваряне от телефона: телефонът получава „край“ през състоянието (seq се сменя), вторият прозорец се затваря, а главният показва редактора */
@@ -3236,8 +3305,26 @@ const CTL=(()=>{
     toast(t('Управлението е на този компютър.'));
   }
   $('#ctlTake').addEventListener('click',takeOver);
-  /* никакви клавиши и влачене на файлове към заключения прозорец */
-  window.addEventListener('keydown',e=>{if(locked&&!box.contains(e.target)){e.preventDefault();e.stopPropagation()}},true);
+  /* управление на четящия прозорец от компютъра; състоянието се връща към телефона през същия канал */
+  const cmd=(c,a)=>post({type:'cmd',cmd:c,arg:a});
+  let want=null,wantT=0,shownPl=null;
+  const playingNow=()=>{
+    if(want!==null&&performance.now()-wantT<1500&&!(netSt&&netSt.playing===want))return want;
+    want=null;return !!(netSt&&netSt.playing);
+  };
+  function paintPlay(){const v=playingNow();if(v!==shownPl){shownPl=v;setIcon($('#ctlPlay i'),v?'pause':'play')}}
+  function doPlay(){const v=!playingNow();want=v;wantT=performance.now();cmd('play',v);paintPlay()}
+  const act={ctlHome:()=>cmd('home'),ctlPrev:()=>cmd('prev'),ctlNext:()=>cmd('next'),ctlEnd:()=>cmd('end'),ctlPlay:doPlay};
+  Object.keys(act).forEach(id=>$('#'+id).addEventListener('click',e=>{act[id]();e.currentTarget.blur()}));
+  const keyAct={' ':doPlay,Home:()=>cmd('home'),End:()=>cmd('end'),ArrowLeft:()=>cmd('prev'),PageUp:()=>cmd('prev'),ArrowRight:()=>cmd('next'),PageDown:()=>cmd('next')};
+  /* всички останали клавиши и влачене на файлове към заключения прозорец се блокират */
+  window.addEventListener('keydown',e=>{
+    if(!locked)return;
+    const f=!e.ctrlKey&&!e.altKey&&!e.metaKey&&keyAct[e.key];
+    if(f){e.preventDefault();e.stopPropagation();if(!e.repeat)f();return}
+    if(!box.contains(e.target)){e.preventDefault();e.stopPropagation()}
+  },true);
+  window.addEventListener('keyup',e=>{if(locked&&e.key===' ')e.preventDefault()},true);
   ['dragover','drop'].forEach(n=>box.addEventListener(n,e=>{e.preventDefault();e.stopPropagation()}));
   window.addEventListener('resize',()=>{if(locked)layout()});
   setInterval(refresh,200);
