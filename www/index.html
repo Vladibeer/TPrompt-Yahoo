@@ -2826,7 +2826,7 @@ function setRcFull(on){
   const tt=t(rcFull?'Изход от цял екран':'Цял екран на дистанционното');if($('#rFull').title!==tt)$('#rFull').title=tt;
 }
 const rcEff=()=>(rcv==='pv'&&!remoteOn())?'ed':rcv;   /* без отворен прозорец на компютъра няма превю и показваме редактора */
-const rcOn=()=>!VIEWER&&narrowMQ.matches&&(netOnFlag||remoteOn());
+const rcOn=()=>!VIEWER&&(narrowMQ.matches||rcFull)&&(netOnFlag||remoteOn());   /* докато цял екран е отворен, режимът остава и когато телефонът в хоризонтално положение е по-широк от 900 px */
 function applyRc(){
   const on=rcOn(),live=on&&remoteOn(),b=document.body;
   const changed=on!==rcWas||b.classList.contains('rcLive')!==live;
