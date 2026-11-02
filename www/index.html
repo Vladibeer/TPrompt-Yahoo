@@ -314,6 +314,8 @@ body.tauri .touch-only{display:none!important}
 #remote{position:relative;flex:none;display:flex;flex-direction:column;gap:6px;padding:8px;border-radius:6px;background:rgba(14,17,40,.94);color:#e9ecff;border:1px solid rgba(255,255,255,.14)}
 #remote[hidden]{display:none}
 #remote.active{border-color:var(--teal);box-shadow:0 0 10px -2px rgba(47,224,192,.3)}
+#ctlLock #rBar2{position:relative;left:auto;bottom:auto;transform:none;opacity:1;pointer-events:auto;z-index:auto;margin:0 auto;flex:none}
+#ctlLock #rBar2 .grpx.r2{display:none}
 #remote #rBar2{position:relative;left:auto;bottom:auto;transform:none;opacity:1;pointer-events:auto;z-index:auto;margin:0 auto;flex:none}
 /* старите контроли на дистанционното са заменени от същия панел като при цял екран */
 #remote .rbar,#remote .rprog{display:none!important}
@@ -480,7 +482,7 @@ body.viewer .top,body.viewer .fmt,body.viewer #bmSide,body.viewer .stagewrap,bod
   #bRun .t{display:inline}
   .btn kbd{display:none}
   #bFile i:last-child,#bRun i:last-child{display:none}
-  /* телефон: всички бутони в лентата са с еднаква ширина, иконата е над надписа */
+  /* устройство: всички бутони в лентата са с еднаква ширина, иконата е над надписа */
   .top > .grow{display:none}
   /* пет еднакви колони: Файл, Отметки, Редакция, Настройки, Пусни */
   .top{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));overflow:visible}
@@ -526,15 +528,7 @@ body.viewer .top,body.viewer .fmt,body.viewer #bmSide,body.viewer .stagewrap,bod
 .ctlhead>i[data-ic]{width:34px;height:34px;color:var(--teal);margin-top:2px}
 .ctlhead b{display:block;font-size:19px;font-weight:800;margin-bottom:4px}
 .ctlsub{margin:0;color:var(--mute);line-height:1.5}
-.ctlfoot{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:12px}
-.ctlfoot>#ctlTake{grid-column:3;justify-self:end}
-.ctlctl{grid-column:2;display:flex;gap:6px;align-items:center}
-.ctlctl .ib{width:44px;height:44px;border:1px solid var(--line);background:var(--panel2);border-radius:4px;color:var(--ink)}
-.ctlctl .ib:hover{background:var(--hover)}
-.ctlctl .ib svg{width:20px;height:20px}
-.ctlctl .ib.play{width:68px;background:var(--teal);border-color:var(--teal);color:#06231d}
-.ctlctl .ib.play:hover{filter:brightness(1.08);background:var(--teal)}
-@media(max-width:640px){.ctlfoot{grid-template-columns:1fr}.ctlctl,.ctlfoot>#ctlTake{grid-column:1;justify-self:center}}
+.ctlfoot{display:flex;justify-content:flex-end}
 #ctlPvWrap{display:flex;justify-content:center;min-height:0}
 #ctlPv{position:relative;flex:none;overflow:hidden;background:var(--pbg,#000);border-radius:3px}
 #ctlStage{position:absolute;left:0;top:0;transform-origin:0 0;overflow:hidden}
@@ -862,7 +856,7 @@ body.viewer .top,body.viewer .fmt,body.viewer #bmSide,body.viewer .stagewrap,bod
 <h4>Бързо начало</h4>
 <ol>
 <li>Напишете или поставете текста в редактора. Форматирането от Word, Google Docs и уеб страници се запазва.</li>
-<li>Натиснете <b>Пусни</b> и изберете <b>Цял екран</b>, за да четете на този екран, или <b>В прозорец</b>, за да четете във втори прозорец, например на втори монитор. <b>Дистанционно</b> показва текста на свързаното устройство (на телефона или на компютъра), а <b>Мрежа</b> отваря връзката между устройствата: QR код, адрес и състояние.</li>
+<li>Натиснете <b>Пусни</b> и изберете <b>Цял екран</b>, за да четете на този екран, или <b>В прозорец</b>, за да четете във втори прозорец, например на втори монитор. <b>Дистанционно</b> показва текста на свързаното устройство (на телефона, таблета или на компютъра), а <b>Мрежа</b> отваря връзката между устройствата: QR код, адрес и състояние.</li>
 <li>Space пуска и спира движението. Стрелките променят скоростта, а + и − размера на буквите.</li>
 <li>Esc или E ви връща в редактора.</li>
 </ol>
@@ -878,10 +872,10 @@ body.viewer .top,body.viewer .fmt,body.viewer #bmSide,body.viewer .stagewrap,bod
 <h4>Кой управлява</h4>
 <p>Във всеки момент текстът се управлява от <b>едно</b> устройство, за да не се разминават двата текста.</p>
 <ul>
-<li>Когато от телефона натиснете „Покажи на компютъра“, главният прозорец на компютъра се заключва и показва текста на телефона само за четене с напредъка му. Всичко се управлява от телефона, а под превюто има бутони за начало, отметки, старт/пауза и край (Space, ←, →, Home, End). Скоростта и размерът се сменят само от телефона.</li>
-<li><b>Спри дистанционното</b> затваря втория прозорец и връща редактора на компютъра. Телефонът получава съобщение и излиза от дистанционния режим.</li>
-<li>Когато от компютъра натиснете „Покажи на телефона“, телефонът само показва, а управлява компютърът.</li>
-<li>Бутонът за цял екран в дистанционното на телефона показва текста като на екрана четец: със същото съотношение и същата ориентация (например 16:9 хоризонтално). Излишното място по краищата остава празно.</li>
+<li>Когато от устройството натиснете „Покажи на компютъра“, главният прозорец на компютъра се заключва и показва текста на устройството само за четене с напредъка му. Всичко се управлява от устройството, а под превюто има бутони за начало, отметки, старт/пауза и край (Space, ←, →, Home, End). Скоростта и размерът се сменят само от устройството.</li>
+<li><b>Прекъсни връзката</b> затваря втория прозорец и връща редактора на компютъра. Устройството получава съобщение и излиза от дистанционния режим.</li>
+<li>Когато от компютъра натиснете „Покажи на устройството“, устройството само показва, а управлява компютърът.</li>
+<li>Бутонът за цял екран в дистанционното на устройството показва текста като на екрана четец: със същото съотношение и същата ориентация (например 16:9 хоризонтално). Излишното място по краищата остава празно.</li>
 </ul>
 <h4>Скриптове</h4>
 <p>Скрипт е отделен текст, например „Новини“ и „Спорт“ в една емисия. Библиотеката е най-горе в левия панел.</p>
@@ -918,15 +912,15 @@ body.viewer .top,body.viewer .fmt,body.viewer #bmSide,body.viewer .stagewrap,bod
 <li>За затваряне натиснете бутона отново (тогава е в акцентен цвят и пише „Затвори прозореца“), Shift+Enter или X в превюто.</li>
 <li>Двата прозореца трябва да са в един и същ браузър и от един и същ файл или адрес.</li>
 </ul>
-<h4>Remote: телефон или таблет като дистанционно</h4>
-<p>На компютъра натиснете <b>Дистанционно</b> в лентата с бутони: показва се QR код. В Android приложението натиснете <b>Дистанционно</b>, после <b>Сканирай QR код</b> (или поставете адреса на ръка). Телефонът и компютърът трябва да са в една Wi‑Fi мрежа.</p>
-<p>След свързване текстът се редактира на телефона и се показва на компютъра на цял екран във втория прозорец. Докато прозорецът на компютъра е отворен, на телефона се вижда превюто в реално време с големи бутони за палеца в същия панел (пускане и пауза, цял екран, затваряне на прозореца, скорост и размер на текста). Бутоните <b>Отметки, Редакция, Настройки</b> отварят панел в горната половина (натиснете го отново, за да се затвори). Лентата с бутони е същата като без връзка.</p>
-<p>Бутонът <b>Цял екран</b> обръща ролите: телефонът чете на цял екран, а компютърът управлява (като при втори монитор, с превю и бутони). Бутонът „назад“ на телефона връща към редактора.</p>
+<h4>Remote: телефон, таблет или презентер като дистанционно</h4>
+<p>На компютъра натиснете <b>Дистанционно</b> в лентата с бутони: показва се QR код. В Android приложението натиснете <b>Дистанционно</b>, после <b>Сканирай QR код</b> (или поставете адреса на ръка). Устройството и компютърът трябва да са в една Wi‑Fi мрежа.</p>
+<p>След свързване текстът се редактира на устройството и се показва на компютъра на цял екран във втория прозорец. Докато прозорецът на компютъра е отворен, на устройството се вижда превюто в реално време с големи бутони за палеца в същия панел (пускане и пауза, цял екран, затваряне на прозореца, скорост и размер на текста). Бутоните <b>Отметки, Редакция, Настройки</b> отварят панел в горната половина (натиснете го отново, за да се затвори). Лентата с бутони е същата като без връзка.</p>
+<p>Бутонът <b>Цял екран</b> обръща ролите: устройството чете на цял екран, а компютърът управлява (като при втори монитор, с превю и бутони). Бутонът „назад“ на устройството връща към редактора.</p>
 <ul>
 <li>Приложението работи и самостоятелно като телепромптър, без връзка.</li>
 <li>Адресът съдържа таен код. „Нов код“ на компютъра прави стария адрес невалиден.</li>
-<li>Връзката не излиза в интернет: телефонът говори директно с компютъра. Windows може да поиска разрешение за мрежата при първо включване.</li>
-<li>Вместо приложението може да се отвори адресът в браузъра на телефона: получава се страница само с превю и бутони за управление.</li>
+<li>Връзката не излиза в интернет: устройството говори директно с компютъра. Windows може да поиска разрешение за мрежата при първо включване.</li>
+<li>Вместо приложението може да се отвори адресът в браузъра на устройството: получава се страница само с превю и бутони за управление.</li>
 </ul>
 <h4>Външен вид</h4>
 <p>Темата е светла или тъмна. В настройките, в „Външен вид“, можете да изберете цвят за акцент и за фон на интерфейса. „Нулирай цветовете“ връща стандартните, а смяната на темата също ги нулира. Цветовете на текста в телепромптъра се настройват отделно, в „Цветове“.</p>
@@ -943,7 +937,7 @@ body.viewer .top,body.viewer .fmt,body.viewer #bmSide,body.viewer .stagewrap,bod
 <h4>Quick start</h4>
 <ol>
 <li>Type or paste your text in the editor. Formatting from Word, Google Docs and web pages is kept.</li>
-<li>Press <b>Start</b> and choose <b>Full screen</b> to read on this screen, or <b>In a window</b> to read in a second window, for example on a second monitor. <b>Remote</b> shows the text on the connected device (the phone or the computer), and <b>Network</b> opens the link between the devices: QR code, address and status.</li>
+<li>Press <b>Start</b> and choose <b>Full screen</b> to read on this screen, or <b>In a window</b> to read in a second window, for example on a second monitor. <b>Remote</b> shows the text on the connected device (the device or the computer), and <b>Network</b> opens the link between the devices: QR code, address and status.</li>
 <li>Space plays and pauses. The arrow keys change the speed, and + and − change the letter size.</li>
 <li>Esc or E takes you back to the editor.</li>
 </ol>
@@ -959,10 +953,10 @@ body.viewer .top,body.viewer .fmt,body.viewer #bmSide,body.viewer .stagewrap,bod
 <h4>Who is in control</h4>
 <p>At any moment the text is controlled by <b>one</b> device, so the two texts never get out of step.</p>
 <ul>
-<li>When you press “Show on computer” on the phone, the computer's main window locks and shows the phone's text read-only with its progress. Everything is controlled from the phone, and below the preview there are buttons for start, bookmarks, play/pause and end (Space, ←, →, Home, End). Speed and size are changed on the phone only.</li>
-<li><b>Stop Remote</b> closes the second window and brings the editor back on the computer. The phone gets a message and leaves remote mode.</li>
-<li>When you press “Show on phone” on the computer, the phone only displays and the computer is in control.</li>
-<li>The full-screen button in the phone's remote shows the text like the reader screen: same aspect ratio and orientation (for example 16:9 landscape). Spare space at the edges stays empty.</li>
+<li>When you press “Show on computer” on the device, the computer's main window locks and shows the device's text read-only with its progress. Everything is controlled from the device, and below the preview there are buttons for start, bookmarks, play/pause and end (Space, ←, →, Home, End). Speed and size are changed on the device only.</li>
+<li><b>Disconnect</b> closes the second window and brings the editor back on the computer. The device gets a message and leaves remote mode.</li>
+<li>When you press “Show on device” on the computer, the device only displays and the computer is in control.</li>
+<li>The full-screen button in the device's remote shows the text like the reader screen: same aspect ratio and orientation (for example 16:9 landscape). Spare space at the edges stays empty.</li>
 </ul>
 <h4>Scripts</h4>
 <p>A script is a separate text, for example “News” and “Sports” in one broadcast. The library is at the top of the left panel.</p>
@@ -999,15 +993,15 @@ body.viewer .top,body.viewer .fmt,body.viewer #bmSide,body.viewer .stagewrap,bod
 <li>To close it, press the button again (it is then in the accent color and says “Close the window”), press Shift+Enter, or use X in the preview.</li>
 <li>Both windows must be in the same browser and from the same file or address.</li>
 </ul>
-<h4>Remote: phone or tablet as a remote control</h4>
-<p>On the computer press <b>Remote</b> in the toolbar: a QR code appears. In the Android app press <b>Remote</b>, then <b>Scan QR code</b> (or paste the address). The phone and the computer must be on the same Wi‑Fi network.</p>
-<p>Once connected you edit the text on the phone and it is shown full screen on the computer in the second window. While the window on the computer is open, the phone shows the live preview with big thumb-friendly buttons in the same panel (play and pause, full screen, close the window, speed and text size). The buttons <b>Bookmarks, Edit, Settings</b> open a panel in the top half (press it again to close). The toolbar is the same as without a connection.</p>
-<p>The <b>Fullscreen</b> button swaps the roles: the phone reads full screen while the computer controls it (like a second monitor, with preview and buttons). The phone's back button returns to the editor.</p>
+<h4>Remote: phone, tablet or presenter as a remote control</h4>
+<p>On the computer press <b>Remote</b> in the toolbar: a QR code appears. In the Android app press <b>Remote</b>, then <b>Scan QR code</b> (or paste the address). The device and the computer must be on the same Wi‑Fi network.</p>
+<p>Once connected you edit the text on the device and it is shown full screen on the computer in the second window. While the window on the computer is open, the device shows the live preview with big thumb-friendly buttons in the same panel (play and pause, full screen, close the window, speed and text size). The buttons <b>Bookmarks, Edit, Settings</b> open a panel in the top half (press it again to close). The toolbar is the same as without a connection.</p>
+<p>The <b>Fullscreen</b> button swaps the roles: the device reads full screen while the computer controls it (like a second monitor, with preview and buttons). The device's back button returns to the editor.</p>
 <ul>
 <li>The app also works on its own as a prompter, with no connection.</li>
 <li>The address contains a secret code. “New code” on the computer invalidates the old address.</li>
-<li>The connection does not go through the internet: the phone talks directly to the computer. Windows may ask for network permission the first time.</li>
-<li>Instead of the app you can open the address in the phone browser: you get a page with just the preview and the controls.</li>
+<li>The connection does not go through the internet: the device talks directly to the computer. Windows may ask for network permission the first time.</li>
+<li>Instead of the app you can open the address in the device browser: you get a page with just the preview and the controls.</li>
 </ul>
 <h4>Appearance</h4>
 <p>The theme is light or dark. In settings, under “Appearance”, you can pick an accent color and an interface background. “Reset colors” restores the defaults, and changing the theme resets them too. The colors of the teleprompter text are set separately, under “Colors”.</p>
@@ -1048,17 +1042,11 @@ body.viewer .top,body.viewer .fmt,body.viewer #bmSide,body.viewer .stagewrap,bod
 <div id="toast" role="status" aria-live="polite"></div>
 <div id="ctlLock" hidden role="dialog" aria-modal="true" aria-labelledby="ctlTitle">
   <div class="modal-card ctlcard">
-    <div class="ctlhead"><i data-ic="phone"></i><div><b id="ctlTitle">Управлява се от телефон</b><p class="ctlsub">Текстът, скоростта и размерът идват от приложението на телефона.</p></div></div>
+    <div class="ctlhead"><i data-ic="phone"></i><div><b id="ctlTitle">Управлява се дистанционно</b></div></div>
     <div id="ctlPvWrap"><div id="ctlPv"><div id="ctlStage"><div id="ctlScroller"><div id="ctlText"></div></div><div id="ctlMk"></div></div></div></div>
+    <div id="ctlBarSlot"></div>
     <div class="ctlfoot">
-      <div class="ctlctl" role="group" aria-label="Управление">
-        <button class="ib" id="ctlHome" type="button" title="В началото (Home)"><i data-ic="home"></i></button>
-        <button class="ib" id="ctlPrev" type="button" title="Предишна отметка (←)"><i data-ic="ctlPrev"></i></button>
-        <button class="ib play" id="ctlPlay" type="button" title="Старт / пауза (Space)"><i data-ic="play"></i></button>
-        <button class="ib" id="ctlNext" type="button" title="Следваща отметка (→)"><i data-ic="ctlNext"></i></button>
-        <button class="ib" id="ctlEnd" type="button" title="В края (End)"><i data-ic="ctlEnd"></i></button>
-      </div>
-      <button class="btn" id="ctlTake" type="button"><i data-ic="x"></i><span>Спри дистанционното</span></button></div>
+      <button class="btn" id="ctlTake" type="button"><i data-ic="x"></i><span>Прекъсни връзката</span></button></div>
   </div>
 </div>
 <input type="file" id="file" hidden accept=".html,.htm,.txt,.md,.docx,.doc,.rtf">
@@ -1205,11 +1193,10 @@ function toast(msg,err){const t=$('#toast');t.textContent=msg;t.classList.toggle
 
 const EN={
 'Управление':'Controls','Предишна отметка (←)':'Previous bookmark (←)','Следваща отметка (→)':'Next bookmark (→)','В края (End)':'To the end (End)',
-'Управлява се от телефон':'Controlled from the phone',
-'Текстът, скоростта и размерът идват от приложението на телефона.':'The text, speed and size come from the phone app.',
-'Спри дистанционното':'Stop Remote',
+'Управлява се дистанционно':'Controlled remotely',
+'Прекъсни връзката':'Disconnect',
 'Управлението е на този компютър.':'This computer is in control now.',
-'Компютърът пое управлението от телефона.':'The computer took control back from the phone.',
+'Компютърът пое управлението от устройството.':'The computer took control back from the device.',
 'Скриптове':'Scripts','Запази като скрипт':'Save as a script','Нов скрипт':'New script',
 'Още няма скриптове. „Запази като скрипт“ записва текста в редактора.':'No scripts yet. “Save as a script” stores the text from the editor.',
 'Преименувай':'Rename','Изтрий':'Delete','Нагоре':'Move up','Надолу':'Move down','Име на скрипта':'Script name',
@@ -1366,13 +1353,13 @@ const EN={
 'Без име':'Untitled',
 'Още няма отметки. Започнете ред с ~ и заглавие.':'No bookmarks yet. Start a line with ~ and a title.',
 'Старт от тук':'Start from here',
-'Редактирай отметката':'Edit bookmark','Изход от цял екран':'Exit full screen','Цял екран на дистанционното':'Full screen remote','Активна':'Active','Редакция':'Edit','Мрежа':'Network','Запази като…':'Save as…','Избор на формат':'Choose a format','Запази като':'Save as','HTML с форматирането и настройките':'HTML with formatting and settings','Чист текст (.txt)':'Plain text (.txt)','Няма свързан телефон':'No phone connected','Няма свързан компютър':'No computer connected','Свържете компютър, за да показвате текста на него.':'Connect a computer to show the text on it.','Проверка на правопис':'Spell check','Подчертава грешните думи в редактора (вградената проверка на системата)':'Underlines misspelled words in the editor (system spell check)','Пусни':'Start','В прозорец':'In a window',
-'Връзка':'Link','Връзка с телефон':'Link with a phone','Връзка с компютър':'Link with a computer',
-'Покажи на телефона':'Show on the phone','Затвори на телефона':'Close on the phone','На този екран':'On this screen',
+'Редактирай отметката':'Edit bookmark','Изход от цял екран':'Exit full screen','Цял екран на дистанционното':'Full screen remote','Активна':'Active','Редакция':'Edit','Мрежа':'Network','Запази като…':'Save as…','Избор на формат':'Choose a format','Запази като':'Save as','HTML с форматирането и настройките':'HTML with formatting and settings','Чист текст (.txt)':'Plain text (.txt)','Няма свързано устройство':'No device connected','Няма свързан компютър':'No computer connected','Свържете компютър, за да показвате текста на него.':'Connect a computer to show the text on it.','Проверка на правопис':'Spell check','Подчертава грешните думи в редактора (вградената проверка на системата)':'Underlines misspelled words in the editor (system spell check)','Пусни':'Start','В прозорец':'In a window',
+'Връзка':'Link','Връзка с устройство':'Link with a device','Връзка с компютър':'Link with a computer',
+'Покажи на устройството':'Show on the device','Затвори на устройството':'Close on the device','На този екран':'On this screen',
 
-'Свържете телефон: сканирайте QR кода.':'Link a phone: scan the QR code.',
-'Пращам към телефона…':'Sending to the phone…',
-'Телефонът не отговори. Отворете TPrompt на телефона и опитайте пак.':'The phone did not respond. Open TPrompt on the phone and try again.',
+'Свържете устройство: сканирайте QR кода.':'Link a device: scan the QR code.',
+'Пращам към устройството…':'Sending to the device…',
+'Устройството не отговори. Отворете TPrompt на устройството и опитайте пак.':'The device did not respond. Open TPrompt on the device and try again.',
 'Компютърът показва текста на този екран.':'The computer is showing the text on this screen.',
 
 'Библиотеката за .docx не е заредена. Нужна е връзка с интернет.':'The .docx library is not loaded. An internet connection is required.',
@@ -2306,7 +2293,7 @@ window.addEventListener('resize',()=>{if(reading){const f=maxPos?pos/maxPos:0;la
 
 const closeRun=()=>{$('#runMenu').hidden=true};
 $('#bRun').addEventListener('click',e=>{e.stopPropagation();$$('.menuwrap .menu').forEach(m=>{if(m.id!=='runMenu')m.hidden=true});const m=$('#runMenu');m.hidden=!m.hidden});
-/* цял екран на това устройство; свързан Android чете на телефона, а компютърът управлява */
+/* цял екран на това устройство; свързан Android чете на устройството, а компютърът управлява */
 const fullHere=()=>{
   const n=(!IS_TAURI&&netApi)?netApi.state():null;
   if(n&&n.on&&n.ok)netApi.startRv();else startReading(true);
@@ -2503,7 +2490,7 @@ function closePopup(){
 const NOHOST={linked:()=>false,viewing:()=>false,showOnPhone(){}};
 const hostApi=()=>{try{return HOST||NOHOST}catch(e){return NOHOST}};   /* HOST се създава по-надолу */
 function togglePopup(){
-  /* четене на телефона и във втори прозорец едновременно не се поддържа: сменяме мястото */
+  /* четене на устройството и във втори прозорец едновременно не се поддържа: сменяме мястото */
   if(IS_TAURI&&hostApi().viewing()){closePopup();openPopup();return}
   if(popupOpen())closePopup();else openPopup();
 }
@@ -2513,24 +2500,24 @@ function updateOpenLabel(){
   const net=(!IS_TAURI&&!VIEWER&&netApi)?netApi.state():null,linked=!!(net&&net.on);
   const setT=(id,v)=>setTxt($(id),v);
   setT('#bRunT',t('Пусни'));if($('#bRun').title!==t('Пусни'))$('#bRun').title=t('Пусни');
-  /* Цял екран: чете на това устройство (свързан Android: чете на телефона, компютърът управлява) */
+  /* Цял екран: чете на това устройство (свързан Android: чете на устройството, компютърът управлява) */
   setT('#bStartT',t('Цял екран'));setT('#bStartS',linked?t('На този екран'):'Ctrl+Enter');
   /* В прозорец: втори прозорец за четене (само Windows и браузър на голям екран) */
   const winT=t(open?'Затвори прозореца':(hasSecond()?'Отвори на втория екран':'Отвори в прозорец'));
   $('#bWin').classList.toggle('on',open);$('#bWin').setAttribute('aria-pressed',String(open));
   setT('#bWinT',t('В прозорец'));setT('#bWinS',winT);if($('#bWin').title!==winT)$('#bWin').title=winT;
-  /* Дистанционно: показва текста на другото устройство (Windows: телефон, Android: компютър) */
+  /* Дистанционно: показва текста на другото устройство (Windows: устройство, Android: компютър) */
   let remS,remOn=false;
   if(IS_TAURI&&!VIEWER){
     const h=hostApi(),ds=h.viewing()?2:h.linked()?1:0;
-    remOn=ds===2;remS=t(ds===2?'Затвори на телефона':ds===1?'Покажи на телефона':'Няма свързан телефон');
+    remOn=ds===2;remS=t(ds===2?'Затвори на устройството':ds===1?'Покажи на устройството':'Няма свързано устройство');
   }else if(linked){
     remOn=popupOpen();remS=t(remOn?'Затвори на компютъра':'Покажи на компютъра');
   }else remS=t('Няма свързан компютър');
   $('#bRemote').classList.toggle('on',remOn);
   setT('#bRemoteT',t('Дистанционно'));setT('#bRemoteS',remS);if($('#bRemote').title!==remS)$('#bRemote').title=remS;
   /* Мрежа: връзка между устройствата (QR код, адрес, състояние) */
-  const netT=t(IS_TAURI?'Връзка с телефон':'Връзка с компютър');
+  const netT=t(IS_TAURI?'Връзка с устройство':'Връзка с компютър');
   setT('#bNetT',t('Мрежа'));setT('#bNetS',netT);if($('#bNet').title!==netT)$('#bNet').title=netT;
 }
 /* преглед на втория прозорец (без огледало, за да чете операторът заедно с водещия) */
@@ -2684,7 +2671,7 @@ function onMsg(m){
   /* ако rAF е спрян (прозорецът е на заден план), догонваме позицията по часовник, преди да сменим старт/пауза/скорост */
   if(VIEWER&&reading&&performance.now()-lastTickAt>60)step(performance.now(),2);
   if(m.id){seenIds.add(m.id);if(seenIds.size>200)seenIds.delete(seenIds.values().next().value)}
-  /* телефонът чете на цял екран: съобщенията на вградения прозорец отиват към компютъра, а не се обработват тук */
+  /* устройството чете на цял екран: съобщенията на вградения прозорец отиват към компютъра, а не се обработват тук */
   if(!VIEWER&&rvOn&&(m.type==='hello'||m.type==='state'||m.type==='bye'||m.type==='settings')){NETC.fromViewer(m);return}
   if(m.type==='settings'){mergeSettings(m.S||{});if(VIEWER&&reading)postState();return}
   if(VIEWER){
@@ -2709,7 +2696,7 @@ function onMsg(m){
     if(m.type==='hello'){if(netCtl&&lastNet)post(Object.assign({},lastNet));else post({type:'content',html:editor.innerHTML,S:{...S}})}
     else if(m.type==='state'){
       if(performance.now()-remoteClosedAt<2000)return;
-      if(netCtl){netSt=m;netSeq++;netDirty=true;return}   /* управлява се от телефона: състоянието отива към него, не към този екран */
+      if(netCtl){netSt=m;netSeq++;netDirty=true;return}   /* управлява се от устройството: състоянието отива към него, не към този екран */
       if(!remoteOn())pvDisp=m.frac||0;
       let stale=false;
       if(pendPlay){
@@ -2812,7 +2799,7 @@ const narrowMQ=matchMedia('(max-width:900px)');
 let rcv='pv',rcWas=false,rcLiveWas=false,rcFull=false;
 /* дистанционно на цял екран: същият екран като „Цял екран“ (текст, панел за управление, отметки, настройки),
    но позицията следва втория прозорец на компютъра, а бутоните управляват него */
-/* Цял екран на дистанционното е точно копие на екрана четец: същият размер W×H (със същото пренасяне на редовете), вписан в екрана на телефона,
+/* Цял екран на дистанционното е точно копие на екрана четец: същият размер W×H (със същото пренасяне на редовете), вписан в екрана на устройството,
    и същата ориентация (хоризонтална или вертикална). Ориентацията се заключва през плъгина на Android, а ако не се получи, се върти с CSS. */
 function stageXf(){
   const mx=S.mirrorH?-1:1,my=S.mirrorV?-1:1;
@@ -2869,7 +2856,7 @@ function setRcFull(on){
   const tt=t(rcFull?'Изход от цял екран':'Цял екран на дистанционното');if($('#rFull').title!==tt)$('#rFull').title=tt;
 }
 const rcEff=()=>(rcv==='pv'&&!remoteOn())?'ed':rcv;   /* без отворен прозорец на компютъра няма превю и показваме редактора */
-const rcOn=()=>!VIEWER&&(narrowMQ.matches||rcFull)&&(netOnFlag||remoteOn());   /* докато цял екран е отворен, режимът остава и когато телефонът в хоризонтално положение е по-широк от 900 px */
+const rcOn=()=>!VIEWER&&(narrowMQ.matches||rcFull)&&(netOnFlag||remoteOn());   /* докато цял екран е отворен, режимът остава и когато устройството в хоризонтално положение е по-широк от 900 px */
 function applyRc(){
   const on=rcOn(),live=on&&remoteOn(),b=document.body;
   const changed=on!==rcWas||b.classList.contains('rcLive')!==live;
@@ -3084,7 +3071,7 @@ const QR=(()=>{
 
 /* ---------- Дистанционно управление ----------
    Windows приложението е „компютър“: има малък сървър и показва текста във втория прозорец.
-   Всяко друго устройство (Android приложението, браузър) е „телефон“: свързва се с компютъра,
+   Всяко друго устройство (Android приложението, браузър) е „устройство“: свързва се с компютъра,
    редактира, управлява и вижда превю. Двете страни говорят със същите съобщения като двата прозореца. */
 const rmModal=$('#remoteModal');
 function openRemote(v){
@@ -3099,7 +3086,7 @@ $('#bRemote').addEventListener('click',()=>{
   if(IS_TAURI){
     const h=hostApi();
     if(h.viewing()){closePopup();return}
-    if(!h.linked()){toast(t('Свържете телефон: сканирайте QR кода.'));openRemote(true);return}
+    if(!h.linked()){toast(t('Свържете устройство: сканирайте QR кода.'));openRemote(true);return}
     h.showOnPhone();updateOpenLabel();return;
   }
   const n=netApi?netApi.state():null;
@@ -3163,8 +3150,8 @@ const HOST=(()=>{
     try{const cmds=await tinvoke('remote_sync',{stateJson:JSON.stringify(state())});(cmds||[]).forEach(run)}catch(e){}
     busy=false;
   }
-  /* съобщения от приложението на телефона -> втория прозорец */
-  /* телефонът чете (цял екран), компютърът управлява: компютърът се държи, все едно има втори прозорец */
+  /* съобщения от приложението на устройството -> втория прозорец */
+  /* устройството чете (цял екран), компютърът управлява: компютърът се държи, все едно има втори прозорец */
   let netView=false,netViewT=0,netViewClosed=-1e9;
   const hide=['lang','theme','accent','uiBg'];
   function txOut(m){
@@ -3178,10 +3165,10 @@ const HOST=(()=>{
     if(!x||typeof x!=='object'||typeof x.type!=='string')return;
     delete x.id;
     if(x.type==='bye'){netView=false;onMsg(x);return}
-    /* след „затвори“ телефонът още малко праща сигнали: не ги приемаме за ново начало, иначе се губи командата за затваряне */
+    /* след „затвори“ устройството още малко праща сигнали: не ги приемаме за ново начало, иначе се губи командата за затваряне */
     if(!netView&&performance.now()-netViewClosed<4000)return;
     if(!netView){
-      if(popupWin&&!popupWin.closed)closePopup();   /* четене на телефона и във втори прозорец едновременно не се поддържа */
+      if(popupWin&&!popupWin.closed)closePopup();   /* четене на устройството и във втори прозорец едновременно не се поддържа */
       netView=true;txHook=txOut;tinvoke('tx_clear').catch(()=>{});
     }
     netViewT=performance.now();
@@ -3191,7 +3178,7 @@ const HOST=(()=>{
   function relay(m){
     if(!m||typeof m!=='object')return;
     if(m.type==='vmsg'){fromPhoneViewer(m.m);return}
-    if(performance.now()<takeUntil&&(m.type==='content'||m.type==='settings'||(m.type==='cmd'&&m.cmd!=='close')))return;   /* закъснели съобщения след „Спри дистанционното“ */
+    if(performance.now()<takeUntil&&(m.type==='content'||m.type==='settings'||(m.type==='cmd'&&m.cmd!=='close')))return;   /* закъснели съобщения след „Прекъсни връзката“ */
     if(m.type==='content'&&typeof m.html==='string'){
       delete m.id;lastNet=m;netCtl=true;
       if(popupWin&&!popupWin.closed)post(Object.assign({},m));else openPopup();
@@ -3253,27 +3240,27 @@ const HOST=(()=>{
   $('#rmCopy').addEventListener('click',()=>{if(info)navigator.clipboard.writeText(info.url).then(()=>toast(t('Адресът е копиран.'))).catch(()=>toast(t('Не успях да копирам.'),true))});
   let was=null;try{was=localStorage.getItem('tp.phone')}catch(e){}
   if(was==='1')setOn(true);
-  /* компютърът казва на приложението на телефона да започне да чете (телефонът пита за това със своята заявка за състояние) */
+  /* компютърът казва на приложението на устройството да започне да чете (устройството пита за това със своята заявка за състояние) */
   let wantT=0;
   function showOnPhone(){
     if(!appAlive())return;
     if(popupWin&&!popupWin.closed)closePopup();
     tinvoke('remote_want',{view:true}).catch(()=>{});
-    toast(t('Пращам към телефона…'));
+    toast(t('Пращам към устройството…'));
     clearTimeout(wantT);
-    wantT=setTimeout(()=>{if(!netView&&on)toast(t('Телефонът не отговори. Отворете TPrompt на телефона и опитайте пак.'),true)},7000);
+    wantT=setTimeout(()=>{if(!netView&&on)toast(t('Устройството не отговори. Отворете TPrompt на устройството и опитайте пак.'),true)},7000);
     updateOpenLabel();
   }
   return {async enter(){if(!on)await setOn(true);else show()},status,linked:appAlive,viewing:()=>netView,showOnPhone};
 })();
 
-/* ----- роли: докато телефонът управлява четенето, главният прозорец на компютъра е само за наблюдение ----- */
+/* ----- роли: докато устройството управлява четенето, главният прозорец на компютъра е само за наблюдение ----- */
 const CTL=(()=>{
   if(VIEWER)return {};
   const box=$('#ctlLock'),wrap=$('#ctlPvWrap'),pvx=$('#ctlPv'),stg=$('#ctlStage'),scr=$('#ctlScroller'),txt=$('#ctlText'),mk=$('#ctlMk');
   let locked=false,shownHtml=null,sig='',inerted=[],raf=0,lastSt=null,base={frac:0,fr:0,ts:0},disp=0,maxY=0,last=0,shownY=NaN,dims={W:1280,H:720};
   const ps=()=>(lastNet&&lastNet.S)||{};
-  /* текстът от телефона се показва като във втория прозорец: същото форматиране, без огледало */
+  /* текстът от устройството се показва като във втория прозорец: същото форматиране, без огледало */
   function mirror(h){
     const d=new DOMParser().parseFromString(h||'','text/html').body;
     d.querySelectorAll('script,iframe,object,embed,link,meta').forEach(n=>n.remove());
@@ -3318,6 +3305,7 @@ const CTL=(()=>{
     else if(base.fr<=0){if(gap<.05)disp=target;else disp+=(target-disp)*(1-Math.exp(-dt*14))}
     else{const step=base.fr*dt,err=target-disp-step,lim=step*.2+.00002;disp+=step+Math.max(-lim,Math.min(lim,err))}
     disp=Math.min(1,Math.max(0,disp));
+    paintBar();
     const y=Math.round(disp*maxY*20)/20;
     if(y!==shownY){shownY=y;scr.style.transform='translate3d(0,'+(-y)+'px,0)'}
     raf=requestAnimationFrame(frame);
@@ -3328,6 +3316,7 @@ const CTL=(()=>{
     document.body.classList.add('ctlLock');
     inerted=[...document.body.children].filter(el=>el!==box&&el.tagName!=='SCRIPT'&&el.id!=='toast'&&!el.hasAttribute('inert'));
     inerted.forEach(el=>el.setAttribute('inert',''));
+    $('#ctlBarSlot').appendChild($('#rBar2'));   /* същият контролен панел като навсякъде */
     box.hidden=false;
     try{document.activeElement&&document.activeElement.blur&&document.activeElement.blur()}catch(e){}
     shownHtml=null;sig='';lastSt=null;disp=0;base={frac:0,fr:0,ts:0};
@@ -3337,6 +3326,7 @@ const CTL=(()=>{
   function unlock(){
     if(!locked)return;locked=false;
     inerted.forEach(el=>el.removeAttribute('inert'));inerted=[];
+    $('#remote').insertBefore($('#rBar2'),$('#rProg'));
     box.hidden=true;shownHtml=null;txt.innerHTML='';
     document.body.classList.remove('ctlLock');
   }
@@ -3351,10 +3341,10 @@ const CTL=(()=>{
     if(sg!==sig){sig=sg;applyVars();relayout=true}
     if(h!==shownHtml){shownHtml=h;txt.innerHTML=mirror(h);relayout=true}
     if(relayout)layout();
-    paintPlay();
+    paintBar();
   }
   function takeOver(){
-    /* същото като при затваряне от телефона: телефонът получава „край“ през състоянието (seq се сменя), вторият прозорец се затваря, а главният показва редактора */
+    /* същото като при затваряне от устройството: устройството получава „край“ през състоянието (seq се сменя), вторият прозорец се затваря, а главният показва редактора */
     takeUntil=performance.now()+4000;
     netSt=null;netSeq++;netDirty=true;netCtl=false;lastNet=null;
     closePopup();
@@ -3362,17 +3352,32 @@ const CTL=(()=>{
     toast(t('Управлението е на този компютър.'));
   }
   $('#ctlTake').addEventListener('click',takeOver);
-  /* управление на четящия прозорец от компютъра; състоянието се връща към телефона през същия канал */
+  /* управление на четящия прозорец от компютъра; състоянието се връща към устройството през същия канал */
   const cmd=(c,a)=>post({type:'cmd',cmd:c,arg:a});
   let want=null,wantT=0,shownPl=null;
   const playingNow=()=>{
     if(want!==null&&performance.now()-wantT<1500&&!(netSt&&netSt.playing===want))return want;
     want=null;return !!(netSt&&netSt.playing);
   };
-  function paintPlay(){const v=playingNow();if(v!==shownPl){shownPl=v;setIcon($('#ctlPlay i'),v?'pause':'play')}}
-  function doPlay(){const v=!playingNow();want=v;wantT=performance.now();cmd('play',v);paintPlay()}
-  const act={ctlHome:()=>cmd('home'),ctlPrev:()=>cmd('prev'),ctlNext:()=>cmd('next'),ctlEnd:()=>cmd('end'),ctlPlay:doPlay};
-  Object.keys(act).forEach(id=>$('#'+id).addEventListener('click',e=>{act[id]();e.currentTarget.blur()}));
+  function paintBar(){
+    const v=playingNow(),q=ps();
+    if(v!==shownPl){shownPl=v;setIcon($('#r2Play i'),v?'pause':'play')}
+    setTxt($('#r2Spd'),q.speed!=null?q.speed:S.speed);setTxt($('#r2Fs'),q.fs!=null?q.fs:S.fs);
+    $('#r2ProgFill').style.transform=`scaleX(${Math.min(1,Math.max(0,disp))})`;
+  }
+  function doPlay(){const v=!playingNow();want=v;wantT=performance.now();cmd('play',v);paintBar()}
+  /* скорост и размер отиват само към четящия прозорец, без да пипат настройките на компютъра */
+  function bumpNet(k,d){const q=ps(),v=clamp(k,Math.round(((q[k]!=null?q[k]:S[k])+d)*100)/100);if(lastNet)lastNet.S=Object.assign({},lastNet.S,{[k]:v});post({type:'settings',S:{[k]:v}});paintBar()}
+  const act={r2Home:()=>cmd('home'),r2Play:doPlay,r2SpdDn:()=>bumpNet('speed',-5),r2SpdUp:()=>bumpNet('speed',5),r2FsDn:()=>bumpNet('fs',-1),r2FsUp:()=>bumpNet('fs',1)};
+  /* в заключено състояние тези бутони не минават през обработчиците за редактора */
+  Object.keys(act).forEach(id=>$('#'+id).addEventListener('click',e=>{if(!locked)return;e.stopImmediatePropagation();act[id]();e.currentTarget.blur()},true));
+  {
+    const pr=$('#r2Prog');let dg=false;
+    const sk=e=>{const r=pr.getBoundingClientRect();const f=Math.min(1,Math.max(0,(e.clientX-r.left)/r.width));cmd('seek',f);disp=f};
+    pr.addEventListener('pointerdown',e=>{if(!locked)return;e.stopImmediatePropagation();dg=true;try{pr.setPointerCapture(e.pointerId)}catch(_){}sk(e)},true);
+    pr.addEventListener('pointermove',e=>{if(locked&&dg){e.stopImmediatePropagation();sk(e)}},true);
+    pr.addEventListener('pointerup',e=>{if(locked){e.stopImmediatePropagation();dg=false}},true);
+  }
   const keyAct={' ':doPlay,Home:()=>cmd('home'),End:()=>cmd('end'),ArrowLeft:()=>cmd('prev'),PageUp:()=>cmd('prev'),ArrowRight:()=>cmd('next'),PageDown:()=>cmd('next')};
   /* всички останали клавиши и влачене на файлове към заключения прозорец се блокират */
   window.addEventListener('keydown',e=>{
@@ -3471,7 +3476,7 @@ if(IS_TAURI&&!VIEWER){
   });
 }
 
-/* ----- телефон / таблет (Android приложение, браузър) ----- */
+/* ----- устройство / таблет (Android приложение, браузър) ----- */
 const NETC=(()=>{
   if(VIEWER)return {ui(){},stopScan(){},open(){},startRv(){},stopRv(){},fromViewer(){}};
   const NET={on:false,ok:false,live:false,base:'',tok:'',seq:-1,wseq:null,skew:0,q:[],sending:false,fails:0,busy:false,timer:0,resend:false,flushT:0};
@@ -3543,7 +3548,7 @@ const NETC=(()=>{
       if(!NET.ok){NET.ok=true;ui();if(NET.live&&NET.resend){NET.resend=false;sendContent()}}
       NET.skew=(r.now||t1)-(t0+t1)/2;
       if(RV.on&&Array.isArray(r.tx))r.tx.forEach(fromPc);
-      /* компютърът поиска четене на този екран (бутон „Покажи на телефона“). Първата стойност само се запомня, за да не се изпълни стара заявка. */
+      /* компютърът поиска четене на този екран (бутон „Покажи на устройството“). Първата стойност само се запомня, за да не се изпълни стара заявка. */
       if(typeof r.wseq==='number'){
         if(NET.wseq===null)NET.wseq=r.wseq;
         else if(r.wseq!==NET.wseq){NET.wseq=r.wseq;if(r.want==='view'&&!RV.on&&!rvOn){toast(t('Компютърът показва текста на този екран.'));startRv()}}
@@ -3552,7 +3557,7 @@ const NETC=(()=>{
       if(s&&s.seq!==NET.seq&&!RV.on){
         NET.seq=s.seq;
         if(s.st){onMsg(Object.assign({},s.st,{type:'state',ts:(s.st.ts||r.now)-NET.skew}))}
-        else{const was=NET.live;NET.live=false;popupWin=null;onMsg({type:'bye'});updateOpenLabel();if(was)toast(t('Компютърът пое управлението от телефона.'))}
+        else{const was=NET.live;NET.live=false;popupWin=null;onMsg({type:'bye'});updateOpenLabel();if(was)toast(t('Компютърът пое управлението от устройството.'))}
       }
     }catch(e){
       if(e&&e.status===403){disconnect();toast(t('Кодът вече не е валиден. Сканирайте нов QR код.'),true)}
@@ -3647,7 +3652,7 @@ const NETC=(()=>{
     if(!IS_TAURI)connect(saved,false);
   }
   ui();
-  /* ----- телефонът чете на цял екран, а компютърът управлява ----- */
+  /* ----- устройството чете на цял екран, а компютърът управлява ----- */
   const RV={on:false,bak:null,box:null,hb:0};
   function rvSend(m){
     if(!NET.on)return;
@@ -3662,7 +3667,7 @@ const NETC=(()=>{
   function fromViewer(m){
     const c=Object.assign({},m);delete c.id;
     if(c.type==='bye'){stopRv(true);return}
-    if(c.type==='state')c.ts=(c.ts||Date.now())+NET.skew;   /* часовникът на компютъра, не на телефона */
+    if(c.type==='state')c.ts=(c.ts||Date.now())+NET.skew;   /* часовникът на компютъра, не на устройството */
     if(c.S)c.S=cleanS(c.S);
     rvSend(c);
   }
