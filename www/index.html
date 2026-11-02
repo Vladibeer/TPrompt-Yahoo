@@ -60,7 +60,6 @@ kbd{font:600 11px Manrope,sans-serif;padding:2px 6px;border-radius:3px;border:1p
 #fileMenu .t{padding-right:0}
 .menu hr{border:0;border-top:1px solid var(--line);margin:6px 4px}
 .menu button[hidden]{display:none}
-#rFull{display:none}
 .menu button kbd{margin-left:auto;flex:none;color:var(--mute)}
 .menu small{display:block;color:var(--mute);font-weight:500;font-size:12px}
 
@@ -115,7 +114,8 @@ input[type=number]::-webkit-inner-spin-button,input[type=number]::-webkit-outer-
 
 #settings{width:clamp(310px,25vw,350px);flex:none;overflow-x:hidden;overflow-y:auto;background:var(--panel);border-left:1px solid var(--line);padding:6px 18px 24px}
 #settings header{display:flex;align-items:center;justify-content:space-between;padding:12px 0 4px}
-#settings header b{font-size:15px;font-weight:800}
+#settings header b{display:flex;align-items:center;gap:8px;font-size:15px;font-weight:800}
+#settings header b i{color:var(--acc)}
 #settings section{padding:12px 0;border-top:1px solid var(--line)}
 #settings header + section{border-top:0}
 #settings h3{display:flex;align-items:center;gap:8px;margin:0 0 10px;font-size:13.5px;font-weight:800}
@@ -236,12 +236,29 @@ body :is(#hud,#rBar2) .grpx.r1+.grpx.r1{border-left:1px solid var(--line)}
 body :is(#hud,#rBar2) :is(#hPlay,#r2Play){order:2;flex:2 1 0;width:auto;min-width:0}
 body :is(#hud,#rBar2) .grpx.r2{order:3;flex:2 1 0;min-width:0;padding:0}
 body :is(#hud,#rBar2) .grpx.r2 .ib{flex:1 1 0;width:auto;min-width:0}
+/* панел на дистанционното: старт/пауза 50% > цял екран > отначало > Х (червен) */
+body #rBar2 .grpx.r2{display:contents}
+body #rBar2 .grpx.r2 .ib{order:3;flex:1 1 0;width:auto;min-width:0;height:42px}
+body #rBar2 :is(#r2Play,#r2Full,#r2Home,#r2Close){padding:0}
+body #rBar2 #r2Play{flex:3 1 0}
+body:not(.rc) #rBar2 #r2Play{flex:2 1 0}
+body:not(.rc) #rBar2 #r2Full{display:none}
+body #rBar2 #r2Close{order:5;flex:1 1 0;width:auto;min-width:0;height:42px;background:#d93a42;color:#fff}
+body #rBar2 #r2Close:hover{background:#ec4a52}
+body #rBar2 #r2Close:active{background:#b92d35}
 body :is(#hud,#rBar2) :is(#hHome,#r2Home){order:4;flex:1 1 0;width:auto;min-width:0}
 body :is(#hud,#rBar2) :is(#hPlay,#r2Play,#hHome,#r2Home),body :is(#hud,#rBar2) .grpx.r2 .ib{height:42px}
 body :is(#hud,#rBar2) .grpx{order:2}
 body :is(#hud,#rBar2) .brk{display:block;flex:0 0 100%;height:0;order:1}
 body #xExit{display:inline-flex;position:absolute;top:calc(12px + env(safe-area-inset-top,0px));right:12px;z-index:5;width:48px;height:48px;align-items:center;justify-content:center;border-radius:6px;background:rgba(14,17,40,.55);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,.12);color:#e9ecff;box-shadow:0 10px 30px -10px rgba(0,0,0,.6);transition:opacity .25s,background .15s}
 body #xExit i{width:22px;height:22px}
+/* телефон/таблет: Android не винаги съобщава височината на статус лентата, затова Х слиза под нея */
+@media (hover:none) and (pointer:coarse){body #xExit{top:calc(max(env(safe-area-inset-top,0px),28px) + 16px)}}
+/* при дистанционно управление и цял екран: бутонът за контролите е същият като „Х“ */
+body.rc #hudToggle{width:48px;height:48px;bottom:calc(12px + env(safe-area-inset-bottom,0px));border-radius:6px;background:rgba(14,17,40,.55);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,.12);color:#e9ecff;box-shadow:0 10px 30px -10px rgba(0,0,0,.6);opacity:1;transition:opacity .25s,background .15s}
+body.rc #hudToggle i{width:22px;height:22px}
+body.rc #hudToggle:active{background:rgba(255,255,255,.14)}
+body.rc #hudToggle.idle{opacity:0;pointer-events:none}
 body #xExit:active{background:rgba(255,255,255,.14)}
 body #xExit.idle{opacity:0;pointer-events:none}
 #bmPanel::-webkit-scrollbar,body.reading #settings::-webkit-scrollbar{width:10px}
@@ -251,10 +268,13 @@ body.reading #settings{color:var(--ink);position:fixed;top:0;right:0;bottom:0;z-
 body.reading #settings.open{transform:none}
 body.reading #settings .close{display:inline-flex}
 
-#bmSide{display:flex;flex-direction:column;width:var(--bmw,250px);flex:none;overflow:auto;background:var(--panel);border-right:1px solid var(--line);padding:14px 12px}
+#bmSide{display:flex;flex-direction:column;width:var(--bmw,250px);flex:none;overflow:hidden;background:var(--panel);border-right:1px solid var(--line);padding:14px 12px 0}
+.bmsec{flex:2 1 0;min-height:0;overflow:auto;padding-bottom:10px}
+.scsec{flex:1 1 0;min-height:0;overflow:auto;margin:0;padding:12px 0 10px;border-top:1px solid var(--line)}
+#edCard{display:contents}
 #bmGrip{flex:none;width:7px;margin:0 -3px;z-index:3;cursor:ew-resize;touch-action:none;background:transparent;transition:background .15s}
 #bmGrip:hover,#bmGrip.drag{background:var(--acc)}
-.modebanner{position:sticky;bottom:-14px;z-index:2;margin:auto -12px -14px;padding:12px 16px;display:flex;align-items:center;gap:10px;background:var(--panel);border-top:1px solid var(--line);font-weight:800;font-size:12.5px;letter-spacing:.8px;flex:none}
+.modebanner{position:relative;z-index:2;margin:0 -12px;padding:12px 16px;display:flex;align-items:center;gap:10px;background:var(--panel);border-top:1px solid var(--line);font-weight:800;font-size:12.5px;letter-spacing:.8px;flex:none}
 .modebanner span:not(.mb-dot){display:none}
 .mb-dot{width:10px;height:10px;border-radius:50%;flex:none;background:var(--acc)}
 .modebanner[data-mode="edit"] .mb-edit,.modebanner[data-mode="prompt"] .mb-prompt,.modebanner[data-mode="sel"] .mb-sel{display:inline}
@@ -315,19 +335,13 @@ body.tauri .touch-only{display:none!important}
 #remote[hidden]{display:none}
 #remote.active{border-color:var(--teal);box-shadow:0 0 10px -2px rgba(47,224,192,.3)}
 #ctlLock #rBar2{position:relative;left:auto;bottom:auto;transform:none;opacity:1;pointer-events:auto;z-index:auto;margin:0 auto;flex:none}
-#ctlLock #rBar2 .grpx.r2{display:none}
+#ctlLock #rBar2 .grpx.r2,#ctlLock #r2Close{display:none}
 #remote #rBar2{position:relative;left:auto;bottom:auto;transform:none;opacity:1;pointer-events:auto;z-index:auto;margin:0 auto;flex:none}
 /* старите контроли на дистанционното са заменени от същия панел като при цял екран */
 #remote .rbar,#remote .rprog{display:none!important}
 #remote{background:none;border:0;padding:0;box-shadow:none;gap:10px}
 #remote.active #pv::after,#ctlPv::after{content:"";position:absolute;inset:0;border:2px solid var(--teal);border-radius:inherit;pointer-events:none;z-index:8}
 body.rc #remote{background:none;border:0;padding:0;margin:8px 10px}
-/* цял екран и затваряне: върху превюто, както „X“ при цял екран */
-#pvTools{position:absolute;top:8px;right:8px;z-index:6;display:flex;gap:6px}
-#remote #pvTools .ib{width:36px;height:36px;border-radius:6px;background:rgba(14,17,40,.55);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,.12);color:#e9ecff;box-shadow:0 10px 30px -10px rgba(0,0,0,.6)}
-#remote #pvTools .ib i{width:18px;height:18px}
-#remote #pvTools .ib:hover{background:rgba(255,255,255,.14)}
-body:not(.rc) #pvTools #rFull{display:none}
 #remote .rbar .ib{width:30px;height:30px;color:#e9ecff;border-radius:5px}
 #remote .rbar .ib:hover{background:rgba(255,255,255,.14)}
 #remote .rbar .ib i{width:16px;height:16px}
@@ -386,9 +400,11 @@ body:not(.rc) #pvTools #rFull{display:none}
   body.rc:not(.reading) #editor,body.rc:not(.reading) #bmSide,body.rc:not(.reading) #settings{flex:1 1 0;min-height:0;width:auto;margin:8px 10px 0;padding:12px 14px;border:1px solid var(--line);border-radius:6px;background:var(--panel);color:var(--ink);box-shadow:none;overflow:auto}
   body.rc #remote{display:none!important;order:3;margin:8px 10px;min-height:0;background:var(--panel);color:var(--ink);border:1px solid var(--line);border-radius:6px}
   body.rc.rcLive #remote{display:flex!important;flex:1 1 0;height:auto}
-  body.rc .fmt{display:flex}
-  body.rc[data-rcv=pv] .fmt{display:none}
-  body.rc:not([data-rcv=ed]) .fmt{opacity:.4;pointer-events:none}
+  body.rc #edCard{display:none}
+  body.rc[data-rcv=ed] #edCard{display:flex;flex-direction:column;order:1}
+  body.rc:not(.reading) #edCard{flex:1 1 0;min-height:0;margin:8px 10px 0;border:1px solid var(--line);border-radius:6px;background:var(--panel);overflow:hidden}
+  body.rc:not(.reading) #edCard #editor{flex:1 1 0;min-height:0;margin:0;border:0;border-radius:0;box-shadow:none;order:0}
+  body.rc #edCard .fmt{display:flex;flex:none;border-bottom:1px solid var(--line)}
   body.rc #modeBanner{display:none}
   @media (max-height:520px){
     body.rc .work{flex-direction:row}
@@ -406,8 +422,6 @@ body:not(.rc) #pvTools #rFull{display:none}
   body.rc #remote .rbar .ib:active{background:var(--hover)}
   body.rc #remote .rbar .play{order:1;flex:1 1 calc(100% - 132px);width:auto;min-width:0;height:54px;background:var(--teal);border-color:var(--teal);color:#06231d;gap:10px}
   body.rc #remote .rbar .play i{width:28px;height:28px}
-  body.rc #remote #rFull{display:inline-flex;order:2}
-  body.rc #remote #rClose{order:3}
   body.rc #remote .rbar .rg{order:5;flex:1 1 calc(50% - 4px);min-width:0;display:flex;align-items:center;justify-content:space-between;gap:2px;padding:3px;border:1px solid var(--line);border-radius:10px;background:var(--panel2)}
   body.rc #remote .rbar .rg > i{width:22px;height:22px;margin-left:8px;color:var(--mute);flex:none}
   body.rc #remote .rbar .rg .ib{border:0;background:none;width:50px;height:48px}
@@ -484,7 +498,7 @@ body.viewer .top,body.viewer .fmt,body.viewer #bmSide,body.viewer .stagewrap,bod
   #bFile i:last-child,#bRun i:last-child{display:none}
   /* устройство: всички бутони в лентата са с еднаква ширина, иконата е над надписа */
   .top > .grow{display:none}
-  /* пет еднакви колони: Файл, Отметки, Редакция, Настройки, Пусни */
+  /* пет еднакви колони: Файл, Отметки, Редактор, Настройки, Пусни */
   .top{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));overflow:visible}
   .top .grp,.top .menuwrap{display:contents}
   .top .btn{width:100%;height:46px;flex-direction:column;justify-content:center;gap:2px;padding:0 2px;font-size:10px;letter-spacing:0}
@@ -540,7 +554,6 @@ body.viewer .top,body.viewer .fmt,body.viewer #bmSide,body.viewer .stagewrap,bod
 #ctlText ul,#ctlText ol{padding-left:1.3em}
 #ctlMk{position:absolute;left:0;right:0;display:none;pointer-events:none}
 #ctlTake{height:40px;justify-content:center}
-.scsec{margin:0 0 14px;padding-bottom:12px;border-bottom:1px solid var(--line)}
 .sctools{display:flex;gap:2px}
 #scList{gap:6px}
 .sci{display:flex;align-items:center;border:1px solid var(--line);background:var(--panel2);border-radius:5px;overflow:hidden}
@@ -581,7 +594,7 @@ body.viewer .top,body.viewer .fmt,body.viewer #bmSide,body.viewer .stagewrap,bod
     <span class="grow"></span>
     <div class="grp viewtog" id="viewTog" role="group" aria-label="Показване на панели">
       <button class="btn vt" data-vt="bm" aria-pressed="true" title="Показване/скриване на отметките (B)"><i data-ic="bookmark"></i><span class="t">Отметки</span></button>
-      <button class="btn vt" data-vt="ed" aria-pressed="true" title="Показване/скриване на редактора (когато е отворен втори прозорец)"><i data-ic="edit"></i><span class="t">Редакция</span></button>
+      <button class="btn vt" data-vt="ed" aria-pressed="true" title="Показване/скриване на редактора (когато е отворен втори прозорец)"><i data-ic="edit"></i><span class="t">Редактор</span></button>
       <button class="btn vt" data-vt="set" aria-pressed="true" title="Показване/скриване на настройките (S)"><i data-ic="sliders"></i><span class="t">Настройки</span></button>
     </div>
     <div class="grp" id="openWrap">
@@ -614,35 +627,38 @@ body.viewer .top,body.viewer .fmt,body.viewer #bmSide,body.viewer .stagewrap,bod
     <button class="ib" data-cmd="justifyCenter" title="Центрирай"><i data-ic="alC"></i></button>
     <button class="ib" data-cmd="justifyRight" title="Подравни вдясно"><i data-ic="alR"></i></button>
     <span class="sep"></span>
+    <button class="ib" data-act="bm" title="Постави отметка на реда (~)"><i data-ic="bookmark"></i></button>
     <button class="ib" data-act="clear" title="Изчисти форматирането на маркираното"><i data-ic="eraser"></i></button>
   </div>
 
   <div class="work">
     <aside id="bmSide" aria-label="Отметки">
+      <div class="bmsec">
+        <div class="bmside-h"><h3><i data-ic="bookmark"></i>Отметки</h3><button class="ib close" id="bCloseBm" title="Затвори"><i data-ic="x"></i></button></div>
+        <div class="bmlist" id="bmListEdit"></div>
+        <p class="sub">Започнете ред с ~ и тя става отметка, например ~Първа песен. Знакът ~ се вижда само в редактора.</p>
+      </div>
       <div class="scsec">
-        <div class="bmside-h"><h3><i data-ic="text"></i>Скриптове</h3><div class="sctools">
-          <button class="ib" id="scSaveAs" title="Запази като скрипт"><i data-ic="save"></i></button>
-          <button class="ib" id="scAdd" title="Нов скрипт"><i data-ic="plus"></i></button>
+        <div class="bmside-h"><h3><i data-ic="text"></i>Текстове</h3><div class="sctools">
+          <button class="ib" id="scSaveAs" title="Запази като текст"><i data-ic="save"></i></button>
+          <button class="ib" id="scAdd" title="Нов текст"><i data-ic="plus"></i></button>
         </div></div>
         <div class="bmlist" id="scList"></div>
       </div>
-      <div class="bmside-h"><h3><i data-ic="bookmark"></i>Отметки</h3><button class="ib close" id="bCloseBm" title="Затвори"><i data-ic="x"></i></button></div>
-      <div class="bmlist" id="bmListEdit"></div>
-      <p class="sub">Започнете ред с ~ и тя става отметка, например ~Първа песен. Знакът ~ се вижда само в редактора.</p>
       <div class="modebanner" id="modeBanner" data-mode="edit" role="status"><span class="mb-dot"></span><span class="mb-edit">РЕДАКТИРАНЕ</span><span class="mb-prompt">ЧЕТЕНЕ</span><span class="mb-sel">ИЗБЕРЕТЕ ПАНЕЛ</span></div>
     </aside>
 
     <div id="bmGrip" title="Влачете, за да разширите панела"></div>
 
     <section class="stagewrap">
-      <div id="editor" class="doc" contenteditable="true" spellcheck="true" lang="bg" aria-label="Текст за телепромптъра"></div>
+      <div id="edCard"><div id="editor" class="doc" contenteditable="true" spellcheck="true" lang="bg" aria-label="Текст за телепромптъра"></div></div>
       <div id="pvGrip" hidden title="Влачете, за да оразмерите редактора и превюто. Двоен клик: автоматично."></div>
       <div id="remote" hidden>
   <div id="pvWrap"><div id="pv"><div id="pvStage"><div id="pvScroller"><div id="pvText"></div></div><div class="dim" id="pvDimTop"></div><div class="dim" id="pvDimBot"></div><div id="pvBand"></div></div></div>
-    <div id="pvTools"><button class="ib" id="rFull" title="Цял екран на дистанционното"><i data-ic="max"></i></button><button class="ib" id="rClose" title="Затвори прозореца"><i data-ic="x"></i></button></div></div>
+</div>
   <div id="rBar2" class="open">
     <div class="grpx g1">
-      <button class="ib" id="r2Home" title="В началото (Home)"><i data-ic="home"></i></button>
+      <button class="ib" id="r2Home" title="Започни отначало (Home)"><i data-ic="home"></i></button>
       <button class="ib play" id="r2Play" title="Старт / пауза (Space)"><i data-ic="play"></i><i class="spc" data-ic="space"></i></button>
     </div>
     <div class="hprog" id="r2Prog" title="Прогрес"><i id="r2ProgFill"></i></div>
@@ -660,11 +676,11 @@ body.viewer .top,body.viewer .fmt,body.viewer #bmSide,body.viewer .stagewrap,bod
     </div>
     <i class="brk"></i>
     <div class="grpx r2">
-      <button class="ib" id="r2ScPrev" title="Предишен скрипт (P)" hidden><i data-ic="prevS"></i></button>
-      <button class="ib" id="r2ScNext" title="Следващ скрипт (N)" hidden><i data-ic="nextS"></i></button>
-      <button class="ib" id="r2Bm" data-vt="bm" title="Отметки (B)"><i data-ic="bookmark"></i></button>
-      <button class="ib" id="r2Set" data-vt="set" title="Настройки (S)"><i data-ic="sliders"></i></button>
+      <button class="ib" id="r2ScPrev" title="Предишен текст (P)" hidden><i data-ic="prevS"></i></button>
+      <button class="ib" id="r2ScNext" title="Следващ текст (N)" hidden><i data-ic="nextS"></i></button>
+      <button class="ib" id="r2Full" title="Цял екран на дистанционното"><i data-ic="max"></i></button>
     </div>
+    <button class="ib" id="r2Close" title="Затвори прозореца"><i data-ic="x"></i></button>
   </div>
   <div class="rprog" id="rProg" title="Прогрес"><i id="rProgFill"></i></div>
   <div class="rbar">
@@ -677,7 +693,7 @@ body.viewer .top,body.viewer .fmt,body.viewer #bmSide,body.viewer .stagewrap,bod
     </section>
 
     <aside id="settings" aria-label="Настройки">
-      <header><b>Настройки</b><button class="ib close" id="bCloseSet" title="Затвори"><i data-ic="x"></i></button></header>
+      <header><b><i data-ic="sliders"></i>Настройки</b><button class="ib close" id="bCloseSet" title="Затвори"><i data-ic="x"></i></button></header>
 
       <section>
         <div class="h3row"><h3><i data-ic="gauge"></i>Скорост</h3>
@@ -778,7 +794,7 @@ body.viewer .top,body.viewer .fmt,body.viewer #bmSide,body.viewer .stagewrap,bod
         <div class="rm-qrwrap"><canvas id="rmQr"></canvas></div>
         <div class="phoneUrl" id="rmUrl"></div>
         <div class="rm-status" id="rmHostSt" role="status"></div>
-        <div class="row rm-row"><button class="btn" id="rmNew" type="button"><i data-ic="refresh"></i><span>Нов код</span></button><button class="btn" id="rmCopy" type="button"><i data-ic="copy"></i><span>Копирай адреса</span></button><button class="btn" id="rmOff" type="button"><i data-ic="x"></i><span>Изключи</span></button></div>
+        <div class="row rm-row"><button class="btn" id="rmNew" type="button"><i data-ic="refresh"></i><span>Нов код</span></button><button class="btn" id="rmCopy" type="button"><i data-ic="copy"></i><span>Копирай адреса</span></button><button class="btn" id="rmOff" type="button"><i data-ic="x"></i><span>Прекъсни връзката</span></button></div>
       </div>
       <div id="rmClient" hidden>
         <p class="rm-lead">Свържете това устройство с TPrompt на компютъра: оттук редактирате и управлявате, а компютърът показва текста.</p>
@@ -798,7 +814,7 @@ body.viewer .top,body.viewer .fmt,body.viewer #bmSide,body.viewer .stagewrap,bod
     <div id="bmPanel" aria-label="Отметки">
     <div class="bmhead"><b>Отметки</b><button class="ib" id="bmClose" title="Затвори (B)"><i data-ic="x"></i></button></div>
     <div class="bmlist" id="bmListRead"></div>
-    <div id="scReadSec" hidden><div class="sch">Скриптове</div><div class="bmlist" id="scListRead"></div></div>
+    <div id="scReadSec" hidden><div class="sch">Текстове</div><div class="bmlist" id="scListRead"></div></div>
   </div>
   <div id="stage">
     <div id="viewport"><div id="scroller"><div id="textcol" class="doc"></div></div></div>
@@ -810,7 +826,7 @@ body.viewer .top,body.viewer .fmt,body.viewer #bmSide,body.viewer .stagewrap,bod
   <button id="xExit" title="Към редактора (E или Esc)" aria-label="Към редактора"><i data-ic="x"></i></button>
   <div id="hud">
     <div class="grpx g1">
-      <button class="ib" id="hHome" title="В началото (Home)"><i data-ic="home"></i></button>
+      <button class="ib" id="hHome" title="Започни отначало (Home)"><i data-ic="home"></i></button>
       <button class="ib play" id="hPlay" title="Старт / пауза (Space)"><i data-ic="play"></i><i class="spc" data-ic="space"></i></button>
     </div>
     <div class="hprog" id="hProg" title="Прогрес"><i id="hProgFill"></i></div>
@@ -836,8 +852,8 @@ body.viewer .top,body.viewer .fmt,body.viewer #bmSide,body.viewer .stagewrap,bod
       <div class="meta"><span id="hTime">0:00</span><small id="hPct">0%</small></div>
     </div>
     <div class="grpx r2">
-      <button class="ib" id="hScPrev" title="Предишен скрипт (P)" hidden><i data-ic="prevS"></i></button>
-      <button class="ib" id="hScNext" title="Следващ скрипт (N)" hidden><i data-ic="nextS"></i></button>
+      <button class="ib" id="hScPrev" title="Предишен текст (P)" hidden><i data-ic="prevS"></i></button>
+      <button class="ib" id="hScNext" title="Следващ текст (N)" hidden><i data-ic="nextS"></i></button>
       <button class="ib" id="hBm" title="Отметки (B)"><i data-ic="bookmark"></i></button>
       <button class="ib" id="hSet" title="Настройки (S)"><i data-ic="sliders"></i></button>
       <button class="ib" id="hFull" title="Цял екран (F)"><i data-ic="max"></i></button>
@@ -873,19 +889,19 @@ body.viewer .top,body.viewer .fmt,body.viewer #bmSide,body.viewer .stagewrap,bod
 <p>Във всеки момент текстът се управлява от <b>едно</b> устройство, за да не се разминават двата текста.</p>
 <ul>
 <li>Когато от устройството натиснете „Покажи на компютъра“, главният прозорец на компютъра се заключва и показва текста на устройството само за четене с напредъка му. Всичко се управлява от устройството, а под превюто има бутони за начало, отметки, старт/пауза и край (Space, ←, →, Home, End). Скоростта и размерът се сменят само от устройството.</li>
-<li><b>Прекъсни връзката</b> затваря втория прозорец и връща редактора на компютъра. Устройството получава съобщение и излиза от дистанционния режим.</li>
+<li><b>Затвори</b> затваря втория прозорец и връща редактора на компютъра. Устройството получава съобщение и излиза от дистанционния режим.</li>
 <li>Когато от компютъра натиснете „Покажи на устройството“, устройството само показва, а управлява компютърът.</li>
 <li>Бутонът за цял екран в дистанционното на устройството показва текста като на екрана четец: със същото съотношение и същата ориентация (например 16:9 хоризонтално). Излишното място по краищата остава празно.</li>
 </ul>
-<h4>Скриптове</h4>
-<p>Скрипт е отделен текст, например „Новини“ и „Спорт“ в една емисия. Библиотеката е най-горе в левия панел.</p>
+<h4>Текстове</h4>
+<p>Всеки запис в библиотеката е отделен текст, например „Новини“ и „Спорт“ в една емисия. Библиотеката е най-долу в левия панел.</p>
 <ul>
-<li><b>Запази като скрипт</b> (иконата с дискета) записва текста от редактора под име по ваш избор. <b>+</b> създава нов празен скрипт.</li>
-<li>Клик върху име зарежда скрипта в редактора. Избраният е със зелена рамка и всяка промяна в него се записва сама.</li>
-<li>Молив преименува, стрелките променят реда, а X изтрива скрипта.</li>
-<li>При четене <b>N</b> и <b>P</b> (или бутоните с двойните стрелки в контролите, или списъкът с отметки) сменят скрипта и започват от началото. Ако четенето върви, то продължава. Когато текстът свърши, се показва кой е следващият.</li>
-<li>Файл → Нов и Файл → Отвори не променят записаните скриптове.</li>
-<li>Скриптовете се пазят в браузъра или приложението на това устройство. Важните копия пазете и като .html файлове.</li>
+<li><b>Запази като текст</b> (иконата с дискета) записва текста от редактора под име по ваш избор. <b>+</b> създава нов празен текст.</li>
+<li>Клик върху име зарежда текста в редактора. Избраният е със зелена рамка и всяка промяна в него се записва сама.</li>
+<li>Молив преименува, стрелките променят реда, а X изтрива текста.</li>
+<li>При четене <b>N</b> и <b>P</b> (или бутоните с двойните стрелки в контролите, или списъкът с отметки) сменят текста и започват от началото. Ако четенето върви, то продължава. Когато текстът свърши, се показва кой е следващият.</li>
+<li>Файл → Нов и Файл → Отвори не променят записаните текстове.</li>
+<li>Текстовете се пазят в браузъра или приложението на това устройство. Важните копия пазете и като .html файлове.</li>
 </ul>
 <h4>Отметки</h4>
 <p>Започнете ред с ~, например ~Първи параграф, и той става отметка. Знакът ~ се вижда само в редактора. Отметките са в списъка вляво, а бутонът със стрелка до всяка започва четенето оттам.</p>
@@ -914,7 +930,7 @@ body.viewer .top,body.viewer .fmt,body.viewer #bmSide,body.viewer .stagewrap,bod
 </ul>
 <h4>Remote: телефон, таблет или презентер като дистанционно</h4>
 <p>На компютъра натиснете <b>Дистанционно</b> в лентата с бутони: показва се QR код. В Android приложението натиснете <b>Дистанционно</b>, после <b>Сканирай QR код</b> (или поставете адреса на ръка). Устройството и компютърът трябва да са в една Wi‑Fi мрежа.</p>
-<p>След свързване текстът се редактира на устройството и се показва на компютъра на цял екран във втория прозорец. Докато прозорецът на компютъра е отворен, на устройството се вижда превюто в реално време с големи бутони за палеца в същия панел (пускане и пауза, цял екран, затваряне на прозореца, скорост и размер на текста). Бутоните <b>Отметки, Редакция, Настройки</b> отварят панел в горната половина (натиснете го отново, за да се затвори). Лентата с бутони е същата като без връзка.</p>
+<p>След свързване текстът се редактира на устройството и се показва на компютъра на цял екран във втория прозорец. Докато прозорецът на компютъра е отворен, на устройството се вижда превюто в реално време с големи бутони за палеца в същия панел (пускане и пауза, цял екран, затваряне на прозореца, скорост и размер на текста). Бутоните <b>Отметки, Редактор, Настройки</b> отварят панел в горната половина (натиснете го отново, за да се затвори). Лентата с бутони е същата като без връзка.</p>
 <p>Бутонът <b>Цял екран</b> обръща ролите: устройството чете на цял екран, а компютърът управлява (като при втори монитор, с превю и бутони). Бутонът „назад“ на устройството връща към редактора.</p>
 <ul>
 <li>Приложението работи и самостоятелно като телепромптър, без връзка.</li>
@@ -954,19 +970,19 @@ body.viewer .top,body.viewer .fmt,body.viewer #bmSide,body.viewer .stagewrap,bod
 <p>At any moment the text is controlled by <b>one</b> device, so the two texts never get out of step.</p>
 <ul>
 <li>When you press “Show on computer” on the device, the computer's main window locks and shows the device's text read-only with its progress. Everything is controlled from the device, and below the preview there are buttons for start, bookmarks, play/pause and end (Space, ←, →, Home, End). Speed and size are changed on the device only.</li>
-<li><b>Disconnect</b> closes the second window and brings the editor back on the computer. The device gets a message and leaves remote mode.</li>
+<li><b>Close</b> closes the second window and brings the editor back on the computer. The device gets a message and leaves remote mode.</li>
 <li>When you press “Show on device” on the computer, the device only displays and the computer is in control.</li>
 <li>The full-screen button in the device's remote shows the text like the reader screen: same aspect ratio and orientation (for example 16:9 landscape). Spare space at the edges stays empty.</li>
 </ul>
-<h4>Scripts</h4>
-<p>A script is a separate text, for example “News” and “Sports” in one broadcast. The library is at the top of the left panel.</p>
+<h4>Texts</h4>
+<p>Each entry in the library is a separate text, for example “News” and “Sports” in one broadcast. The library is at the bottom of the left panel.</p>
 <ul>
-<li><b>Save as a script</b> (the floppy-disk icon) stores the editor text under a name you choose. <b>+</b> creates a new empty script.</li>
-<li>Click a name to load the script into the editor. The selected one has a green border and every change to it is saved automatically.</li>
-<li>The pencil renames, the arrows change the order, and X deletes the script.</li>
-<li>While reading, <b>N</b> and <b>P</b> (or the double-arrow buttons in the controls, or the bookmarks list) switch the script and start from the beginning. If reading is running, it continues. When the text ends, the next script is shown.</li>
-<li>File → New and File → Open do not change the saved scripts.</li>
-<li>Scripts are stored in the browser or app on this device. Keep important copies as .html files too.</li>
+<li><b>Save as text</b> (the floppy-disk icon) stores the editor text under a name you choose. <b>+</b> creates a new empty text.</li>
+<li>Click a name to load the text into the editor. The selected one has a green border and every change to it is saved automatically.</li>
+<li>The pencil renames, the arrows change the order, and X deletes the text.</li>
+<li>While reading, <b>N</b> and <b>P</b> (or the double-arrow buttons in the controls, or the bookmarks list) switch the text and start from the beginning. If reading is running, it continues. When the text ends, the next text is shown.</li>
+<li>File → New and File → Open do not change the saved texts.</li>
+<li>Texts are stored in the browser or app on this device. Keep important copies as .html files too.</li>
 </ul>
 <h4>Bookmarks</h4>
 <p>Start a line with ~, for example ~First paragraph, and it becomes a bookmark. The ~ sign is visible only in the editor. Bookmarks are listed on the left, and the arrow button next to each one starts reading from there.</p>
@@ -1029,7 +1045,7 @@ body.viewer .top,body.viewer .fmt,body.viewer #bmSide,body.viewer .stagewrap,bod
           <dt><kbd>&lt;</kbd><kbd>&gt;</kbd></dt><dd>Следваща и предишна отметка</dd>
           <dt><kbd>C</kbd></dt><dd>Показва и скрива контролите</dd>
           <dt><kbd>B</kbd></dt><dd>Списък с отметки</dd>
-          <dt><kbd>N</kbd><kbd>P</kbd></dt><dd>Следващ и предишен скрипт</dd>
+          <dt><kbd>N</kbd><kbd>P</kbd></dt><dd>Следващ и предишен текст</dd>
           <dt><kbd>F</kbd></dt><dd>Цял екран</dd>
           <dt><kbd>S</kbd></dt><dd>Тази лента с настройки</dd>
           <dt><kbd>E</kbd><kbd>Esc</kbd></dt><dd>Обратно към редактора</dd>
@@ -1046,7 +1062,7 @@ body.viewer .top,body.viewer .fmt,body.viewer #bmSide,body.viewer .stagewrap,bod
     <div id="ctlPvWrap"><div id="ctlPv"><div id="ctlStage"><div id="ctlScroller"><div id="ctlText"></div></div><div id="ctlMk"></div></div></div></div>
     <div id="ctlBarSlot"></div>
     <div class="ctlfoot">
-      <button class="btn" id="ctlTake" type="button"><i data-ic="x"></i><span>Прекъсни връзката</span></button></div>
+      <button class="btn" id="ctlTake" type="button"><i data-ic="x"></i><span>Затвори</span></button></div>
   </div>
 </div>
 <input type="file" id="file" hidden accept=".html,.htm,.txt,.md,.docx,.doc,.rtf">
@@ -1197,23 +1213,22 @@ const EN={
 'Прекъсни връзката':'Disconnect',
 'Управлението е на този компютър.':'This computer is in control now.',
 'Компютърът пое управлението от устройството.':'The computer took control back from the device.',
-'Скриптове':'Scripts','Запази като скрипт':'Save as a script','Нов скрипт':'New script',
-'Още няма скриптове. „Запази като скрипт“ записва текста в редактора.':'No scripts yet. “Save as a script” stores the text from the editor.',
-'Преименувай':'Rename','Изтрий':'Delete','Нагоре':'Move up','Надолу':'Move down','Име на скрипта':'Script name',
+'Текстове':'Texts','Запази като текст':'Save as text','Нов текст':'New text',
+'Още няма текстове. „Запази като текст“ записва текста в редактора.':'No texts yet. “Save as text” stores the text from the editor.',
+'Преименувай':'Rename','Изтрий':'Delete','Нагоре':'Move up','Надолу':'Move down','Име на текста':'Text name',
 'Отказ':'Cancel','Замени':'Replace','Заменяне на текста':'Replace the text',
-'Текущият текст не е записан като скрипт. Да се замени ли?':'The current text is not saved as a script. Replace it?',
-'Да се изтрие скриптът „{n}“?':'Delete the script “{n}”?','Изтриване на скрипт':'Delete script','Скрипт':'Script',
-'Скриптът е изтрит.':'Script deleted.','Предишен скрипт (P)':'Previous script (P)','Следващ скрипт (N)':'Next script (N)',
-'Това е последният скрипт.':'This is the last script.','Това е първият скрипт.':'This is the first script.',
-'Край. Следващ скрипт: {n} (N)':'End. Next script: {n} (N)','Следващ и предишен скрипт':'Next and previous script',
-'Няма място за запис на скрипта.':'No space to store the script.','Скрипт: {n}':'Script: {n}','Скриптът е записан: {n}':'Script saved: {n}',
-'Всеки скрипт е отделен текст (например „Новини“ и „Спорт“). Промените в избрания скрипт се записват сами.':'Each script is a separate text (for example “News” and “Sports”). Changes to the selected script are saved automatically.',
+'Текущият текст не е записан в библиотеката. Да се замени ли?':'The current text is not saved in the library. Replace it?',
+'Да се изтрие текстът „{n}“?':'Delete the text “{n}”?','Изтриване на текст':'Delete text','Текст':'Text',
+'Текстът е изтрит.':'Text deleted.','Предишен текст (P)':'Previous text (P)','Следващ текст (N)':'Next text (N)',
+'Това е последният текст.':'This is the last text.','Това е първият текст.':'This is the first text.',
+'Край. Следващ текст: {n} (N)':'End. Next text: {n} (N)','Следващ и предишен текст':'Next and previous text',
+'Няма място за запис на текста.':'No space to store the text.','Текст: {n}':'Text: {n}','Текстът е записан: {n}':'Text saved: {n}',
+'Всеки запис е отделен текст (например „Новини“ и „Спорт“). Промените в избрания текст се записват сами.':'Each entry is a separate text (for example “News” and “Sports”). Changes to the selected text are saved automatically.',
 'Дистанционно управление':'Remote control',
 
-'Изключи':'Turn off',
 
 'Свържете това устройство с TPrompt на компютъра: оттук редактирате и управлявате, а компютърът показва текста.':'Connect this device to TPrompt on the computer: you edit and control from here, the computer shows the text.',
-'Сканирай QR кода':'Scan the QR code','Или въведете адреса от компютъра':'Or type the address from the computer','Свържи':'Connect','Прекъсни връзката':'Disconnect',
+'Сканирай QR кода':'Scan the QR code','Или въведете адреса от компютъра':'Or type the address from the computer','Свържи':'Connect','Край':'End',
 'На компютъра: бутон „Връзка“ в TPrompt, там се показва QR кодът.':'On the computer: the “Link” button in TPrompt shows the QR code.',
 'Превю':'Preview','Редактор':'Editor',
 
@@ -1256,7 +1271,7 @@ const EN={
 'Инсталирай като приложение':'Install as an app',
 'Отметки':'Bookmarks',
 'Отметки (B)':'Bookmarks (B)',
-'В началото (Home)':'To the start (Home)',
+'Започни отначало (Home)':'Start Over (Home)',
 'Запази (Ctrl+S)':'Save (Ctrl+S)',
 'Затвори':'Close',
 'Затвори (B)':'Close (B)',
@@ -1350,10 +1365,10 @@ const EN={
 'Маркирайте част от текста, за да смените размера.':'Select part of the text to change its size.',
 'Друг цвят':'Custom color',
 'Без фон':'No highlight',
-'Без име':'Untitled',
+'Без име':'Untitled','Постави отметка на реда (~)':'Add a bookmark to this line (~)','Поставете курсор на реда за отметка.':'Place the cursor on the line for the bookmark.',
 'Още няма отметки. Започнете ред с ~ и заглавие.':'No bookmarks yet. Start a line with ~ and a title.',
 'Старт от тук':'Start from here',
-'Редактирай отметката':'Edit bookmark','Изход от цял екран':'Exit full screen','Цял екран на дистанционното':'Full screen remote','Активна':'Active','Редакция':'Edit','Мрежа':'Network','Запази като…':'Save as…','Избор на формат':'Choose a format','Запази като':'Save as','HTML с форматирането и настройките':'HTML with formatting and settings','Чист текст (.txt)':'Plain text (.txt)','Няма свързано устройство':'No device connected','Няма свързан компютър':'No computer connected','Свържете компютър, за да показвате текста на него.':'Connect a computer to show the text on it.','Проверка на правопис':'Spell check','Подчертава грешните думи в редактора (вградената проверка на системата)':'Underlines misspelled words in the editor (system spell check)','Пусни':'Start','В прозорец':'In a window',
+'Редактирай отметката':'Edit bookmark','Изход от цял екран':'Exit full screen','Цял екран на дистанционното':'Full screen remote','Активна':'Active','Редактор':'Editor','Мрежа':'Network','Запази като…':'Save as…','Избор на формат':'Choose a format','Запази като':'Save as','HTML с форматирането и настройките':'HTML with formatting and settings','Чист текст (.txt)':'Plain text (.txt)','Няма свързано устройство':'No device connected','Няма свързан компютър':'No computer connected','Свържете компютър, за да показвате текста на него.':'Connect a computer to show the text on it.','Проверка на правопис':'Spell check','Подчертава грешните думи в редактора (вградената проверка на системата)':'Underlines misspelled words in the editor (system spell check)','Пусни':'Start','В прозорец':'In a window',
 'Връзка':'Link','Връзка с устройство':'Link with a device','Връзка с компютър':'Link with a computer',
 'Покажи на устройството':'Show on the device','Затвори на устройството':'Close on the device','На този екран':'On this screen',
 
@@ -1489,7 +1504,7 @@ let docTouched=false;
 try{const d0=localStorage.getItem('tp.doc.v1');if(d0){editor.innerHTML=d0;docTouched=true}else editor.innerHTML=sample()}catch(e){editor.innerHTML=sample()}
 
 let savedRange=null,docT=0;
-/* библиотека със скриптове: списък от {id,name,html}; активният се записва автоматично при промяна */
+/* библиотека със текстове: списък от {id,name,html}; активният се записва автоматично при промяна */
 const SC_KEY='tp.scripts.v1',SC_ACT='tp.scripts.active';
 let SC=[],scActive=null;
 try{
@@ -1559,12 +1574,29 @@ function updateFmt(){
   const f=cs.fontFamily.split(',')[0].replace(/["']/g,'').trim();
   fontSel.value=FONTS.some(x=>x[0]===f)?f:S.font;
 }
+/* отметка на реда: слага или маха ~ в началото на реда, където е курсорът (същото като да се напише ръчно) */
+function markLine(){
+  const sel=getSelection();
+  if(!sel.rangeCount||!editor.contains(sel.anchorNode)){editor.focus();toast(t('Поставете курсор на реда за отметка.'));return}
+  let n=sel.anchorNode;if(n.nodeType===3)n=n.parentNode;
+  while(n&&n!==editor&&!(n.parentNode===editor||/^(P|H[1-6]|LI|DIV)$/.test(n.tagName)&&!n.querySelector('p,h1,h2,h3,h4,h5,h6,li,div')))n=n.parentNode;
+  if(!n||n===editor){exec('formatBlock','p');n=sel.anchorNode;if(n&&n.nodeType===3)n=n.parentNode;if(!n||n===editor)return}
+  if(/^[\s\u00a0]*~/.test(n.textContent))stripTilde(n);
+  else{
+    const w=document.createTreeWalker(n,NodeFilter.SHOW_TEXT);let tn=w.nextNode();
+    if(tn)tn.textContent='~'+tn.textContent;
+    else{const x=document.createTextNode('~');n.insertBefore(x,n.firstChild)}
+    if(n.querySelector&&n.firstChild&&n.firstChild.nodeName==='BR'){}
+  }
+  editor.dispatchEvent(new Event('input',{bubbles:true}));
+}
 $('#fmt').addEventListener('mousedown',e=>{if(e.target.closest('button'))e.preventDefault()});
 $('#fmt').addEventListener('click',e=>{
   const b=e.target.closest('button');if(!b)return;
   if(b.dataset.cmd)exec(b.dataset.cmd);
   else if(b.dataset.act==='undo')exec('undo');
   else if(b.dataset.act==='redo')exec('redo');
+  else if(b.dataset.act==='bm')markLine();
   else if(b.dataset.act==='clear'){exec('removeFormat');editor.querySelectorAll('[style*="font-size"],[style*="color"]').forEach(el=>{if(!el.matches('p,h1,h2,h3,h4,h5,h6')){el.style.fontSize='';el.style.color=''}})}
 });
 
@@ -1858,8 +1890,8 @@ function toggleBm(force){
   bmPanel.classList.toggle('open',o);$('#hBm').setAttribute('aria-pressed',String(o));showHud();
 }
 
-/* ---------- Скриптове (библиотека) ---------- */
-function scPersist(){try{localStorage.setItem(SC_KEY,JSON.stringify(SC))}catch(e){toast(t('Няма място за запис на скрипта.'),true)}}
+/* ---------- Текстове (библиотека) ---------- */
+function scPersist(){try{localStorage.setItem(SC_KEY,JSON.stringify(SC))}catch(e){toast(t('Няма място за запис на текста.'),true)}}
 function scIdx(id){return SC.findIndex(x=>x.id===id)}
 function scNewId(){return 's'+Date.now().toString(36)+Math.random().toString(36).slice(2,6)}
 function setActiveSc(id){
@@ -1877,7 +1909,7 @@ function scFlush(){clearTimeout(docT);if(!VIEWER&&scActive&&scIdx(scActive)>=0){
 function scDetach(){if(VIEWER)return;scFlush();if(scActive)setActiveSc(null)}
 function scDefaultName(){
   const l=editor.innerText.split('\n').map(x=>x.replace(TILDE,'').trim()).find(Boolean)||'';
-  return l.slice(0,40)||(t('Скрипт')+' '+(SC.length+1));
+  return l.slice(0,40)||(t('Текст')+' '+(SC.length+1));
 }
 function dlg(o){
   return new Promise(res=>{
@@ -1913,7 +1945,7 @@ function dlg(o){
 async function scLoad(i){
   const s=SC[i];if(!s||VIEWER)return;
   if(!reading&&!(scActive&&scIdx(scActive)>=0)&&docTouched&&editor.innerText.trim()){
-    const ok=await dlg({title:t('Заменяне на текста'),text:t('Текущият текст не е записан като скрипт. Да се замени ли?'),ok:t('Замени')});
+    const ok=await dlg({title:t('Заменяне на текста'),text:t('Текущият текст не е записан в библиотеката. Да се замени ли?'),ok:t('Замени')});
     if(!ok)return;
   }
   scFlush();
@@ -1923,39 +1955,39 @@ async function scLoad(i){
   setActiveSc(s.id);renderBm();updateFoot();
   if(reading){buildPrompter();renderBm();layout();pos=0;remain=0;draw(true);showHud()}
   if(remoteOn()){post({type:'content',html:editor.innerHTML,reset:true});if(pvRendered)renderPreview()}
-  toast(t('Скрипт: {n}',{n:s.name}));
+  toast(t('Текст: {n}',{n:s.name}));
 }
 function scStep(d){
   if(SC.length<2||VIEWER)return;
   let i=scIdx(scActive);if(i<0)i=d>0?-1:SC.length;
   i+=d;
-  if(i<0||i>=SC.length){toast(t(d>0?'Това е последният скрипт.':'Това е първият скрипт.'));return}
+  if(i<0||i>=SC.length){toast(t(d>0?'Това е последният текст.':'Това е първият текст.'));return}
   scLoad(i);
 }
 function endHint(){
   if(VIEWER)return;
   const i=scIdx(scActive);
-  if(i>=0&&i<SC.length-1)toast(t('Край. Следващ скрипт: {n} (N)',{n:SC[i+1].name}));
+  if(i>=0&&i<SC.length-1)toast(t('Край. Следващ текст: {n} (N)',{n:SC[i+1].name}));
 }
 async function scSaveAsNew(){
-  const v=await dlg({title:t('Запази като скрипт'),input:scDefaultName(),ok:t('Запази')});
+  const v=await dlg({title:t('Запази като текст'),input:scDefaultName(),ok:t('Запази')});
   if(v===null||v===false)return;
   scFlush();
   const s={id:scNewId(),name:(v||scDefaultName()).slice(0,60),html:editor.innerHTML};
   SC.push(s);scPersist();setActiveSc(s.id);
-  toast(t('Скриптът е записан: {n}',{n:s.name}));
+  toast(t('Текстът е записан: {n}',{n:s.name}));
 }
 async function scAddEmpty(){
-  const v=await dlg({title:t('Нов скрипт'),input:'',ok:t('Запази')});
+  const v=await dlg({title:t('Нов текст'),input:'',ok:t('Запази')});
   if(v===null||v===false)return;
-  const s={id:scNewId(),name:(v||(t('Скрипт')+' '+(SC.length+1))).slice(0,60),html:'<p><br></p>'};
+  const s={id:scNewId(),name:(v||(t('Текст')+' '+(SC.length+1))).slice(0,60),html:'<p><br></p>'};
   SC.push(s);scPersist();renderScripts();
   await scLoad(SC.length-1);
   if(!rcOn()||rcEff()==='ed'){try{editor.focus()}catch(e){}}
 }
 async function scRename(i){
   const s=SC[i];if(!s)return;
-  const v=await dlg({title:t('Име на скрипта'),input:s.name,ok:t('Запази')});
+  const v=await dlg({title:t('Име на текста'),input:s.name,ok:t('Запази')});
   if(!v)return;
   s.name=v.slice(0,60);scPersist();renderScripts();
 }
@@ -1965,19 +1997,19 @@ function scMove(i,d){
 }
 async function scDelete(i){
   const s=SC[i];if(!s)return;
-  const ok=await dlg({title:t('Изтриване на скрипт'),text:t('Да се изтрие скриптът „{n}“?',{n:s.name}),ok:t('Изтрий')});
+  const ok=await dlg({title:t('Изтриване на текст'),text:t('Да се изтрие текстът „{n}“?',{n:s.name}),ok:t('Изтрий')});
   if(!ok)return;
   const k=scIdx(s.id);if(k<0)return;
   SC.splice(k,1);scPersist();
   if(s.id===scActive)setActiveSc(null);else renderScripts();
-  toast(t('Скриптът е изтрит.'));
+  toast(t('Текстът е изтрит.'));
 }
 function renderScripts(){
   const box=$('#scList');if(!box)return;
   box.innerHTML='';
   if(!SC.length){
     const d=document.createElement('div');d.className='bmempty';
-    d.textContent=t('Още няма скриптове. „Запази като скрипт“ записва текста в редактора.');box.appendChild(d);
+    d.textContent=t('Още няма текстове. „Запази като текст“ записва текста в редактора.');box.appendChild(d);
   }
   SC.forEach((s,i)=>{
     const row=document.createElement('div');row.className='sci'+(s.id===scActive?' cur':'');
@@ -2086,7 +2118,7 @@ function drawer(which){
   document.body.classList.toggle('drawer',!!which);
   syncPanelBtns();
 }
-/* малък екран: бутоните Отметки, Редакция, Настройки избират кой панел е отворен */
+/* малък екран: бутоните Отметки, Редактор, Настройки избират кой панел е отворен */
 function syncPanelBtns(){
   try{
     if(!matchMedia('(max-width:900px)').matches)return;
@@ -2260,7 +2292,7 @@ async function lockScreen(){try{if('wakeLock' in navigator&&!wl){wl=await naviga
 function unlockScreen(){try{if(wl)wl.release()}catch(e){}wl=null}
 document.addEventListener('visibilitychange',()=>{if(reading&&document.visibilityState==='visible')lockScreen()});
 function stopReading(){unlockScreen();
-  if(rmFollow){rmFollow=false;rcFull=false;setIcon($('#rFull i'),'max')}
+  if(rmFollow){rmFollow=false;rcFull=false;setIcon($('#r2Full i'),'max')}
   rcUnlockOrient();
   reading=false;rcFit();playing=false;prompter.hidden=true;document.body.classList.remove('reading','nocursor');
   settings.classList.remove('open');bmPanel.classList.remove('open');$('#hBm').setAttribute('aria-pressed','false');setHud(false);
@@ -2852,13 +2884,16 @@ function setRcFull(on){
     if(reading&&rmFollow){rmFollow=false;stopReading()}
     rmFollow=false;
   }
-  setIcon($('#rFull i'),rcFull?'min':'max');
-  const tt=t(rcFull?'Изход от цял екран':'Цял екран на дистанционното');if($('#rFull').title!==tt)$('#rFull').title=tt;
+  setIcon($('#r2Full i'),rcFull?'min':'max');
+  const tt=t(rcFull?'Изход от цял екран':'Цял екран на дистанционното');if($('#r2Full').title!==tt)$('#r2Full').title=tt;
 }
 const rcEff=()=>(rcv==='pv'&&!remoteOn())?'ed':rcv;   /* без отворен прозорец на компютъра няма превю и показваме редактора */
 const rcOn=()=>!VIEWER&&(narrowMQ.matches||rcFull)&&(netOnFlag||remoteOn());   /* докато цял екран е отворен, режимът остава и когато устройството в хоризонтално положение е по-широк от 900 px */
 function applyRc(){
   const on=rcOn(),live=on&&remoteOn(),b=document.body;
+  {const fm=$('#fmt'),card=$('#edCard');   /* на малък екран с дистанционно тулбарът е част от панела „Редактор“ */
+   if(on&&narrowMQ.matches){if(fm.parentNode!==card)card.insertBefore(fm,card.firstChild)}
+   else if(fm.parentNode===card)$('#app').insertBefore(fm,$('.work'))}
   const changed=on!==rcWas||b.classList.contains('rcLive')!==live;
   if(on!==rcWas){
     rcWas=on;
@@ -2951,8 +2986,8 @@ $('#rSpdUp').addEventListener('click',()=>bump('speed',5));
 $('#rFsDn').addEventListener('click',()=>bump('fs',-1));
 $('#rFsUp').addEventListener('click',()=>bump('fs',1));
 $('#rProg').addEventListener('click',e=>{const r=e.currentTarget.getBoundingClientRect();post({type:'cmd',cmd:'seek',arg:(e.clientX-r.left)/r.width})});
-$('#rClose').addEventListener('click',closePopup);
-$('#rFull').addEventListener('click',()=>setRcFull(!rcFull));
+$('#r2Close').addEventListener('click',closePopup);
+$('#r2Full').addEventListener('click',()=>setRcFull(!rcFull));
 $('#remote').addEventListener('mousedown',e=>{if(e.target.closest('button'))e.preventDefault()});
 document.addEventListener('pointerdown',e=>{
   if(VIEWER)return;
@@ -3178,7 +3213,7 @@ const HOST=(()=>{
   function relay(m){
     if(!m||typeof m!=='object')return;
     if(m.type==='vmsg'){fromPhoneViewer(m.m);return}
-    if(performance.now()<takeUntil&&(m.type==='content'||m.type==='settings'||(m.type==='cmd'&&m.cmd!=='close')))return;   /* закъснели съобщения след „Прекъсни връзката“ */
+    if(performance.now()<takeUntil&&(m.type==='content'||m.type==='settings'||(m.type==='cmd'&&m.cmd!=='close')))return;   /* закъснели съобщения след „Край“ */
     if(m.type==='content'&&typeof m.html==='string'){
       delete m.id;lastNet=m;netCtl=true;
       if(popupWin&&!popupWin.closed)post(Object.assign({},m));else openPopup();
