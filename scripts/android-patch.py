@@ -12,7 +12,7 @@ APP = os.path.join(ROOT, "android", "app", "src", "main")
 MANIFEST = os.path.join(APP, "AndroidManifest.xml")
 RES = os.path.join(APP, "res")
 SRC = os.path.join(ROOT, "resources", "icon-source.png")
-BG = "#0c0f22"
+BG = "#2b0a62"   # среден тон от фона на логото
 
 if not os.path.exists(MANIFEST):
     sys.exit("Няма android/ проект. Първо изпълнете: npx cap add android")
@@ -58,7 +58,7 @@ for dens, size in legacy.items():
 for dens, size in foreground.items():
     d = os.path.join(RES, "mipmap-" + dens)
     os.makedirs(d, exist_ok=True)
-    inner = int(size * 0.62)
+    inner = int(size * 0.72)   # логото запълва видимата част на маската (72 от 108 dp), както другите икони
     canvas = Image.new("RGBA", (size, size), (0, 0, 0, 0))
     canvas.paste(src.resize((inner, inner), Image.LANCZOS), ((size - inner) // 2, (size - inner) // 2))
     canvas.save(os.path.join(d, "ic_launcher_foreground.png"))
