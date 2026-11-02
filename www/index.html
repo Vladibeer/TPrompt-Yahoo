@@ -318,7 +318,7 @@ body.tauri .touch-only{display:none!important}
 /* старите контроли на дистанционното са заменени от същия панел като при цял екран */
 #remote .rbar,#remote .rprog{display:none!important}
 #remote{background:none;border:0;padding:0;box-shadow:none;gap:10px}
-#remote.active #pv{box-shadow:0 0 0 2px var(--teal),0 0 14px -2px rgba(47,224,192,.45)}
+#remote.active #pv::after,#ctlPv::after{content:"";position:absolute;inset:0;border:2px solid var(--teal);border-radius:inherit;pointer-events:none;z-index:8}
 body.rc #remote{background:none;border:0;padding:0;margin:8px 10px}
 /* цял екран и затваряне: върху превюто, както „X“ при цял екран */
 #pvTools{position:absolute;top:8px;right:8px;z-index:6;display:flex;gap:6px}
@@ -521,7 +521,7 @@ body.viewer .top,body.viewer .fmt,body.viewer #bmSide,body.viewer .stagewrap,bod
 .ib[hidden]{display:none!important}
 #ctlLock{position:fixed;inset:0;z-index:300;display:flex;align-items:center;justify-content:center;padding:20px;background:color-mix(in srgb,var(--bg) 90%,transparent);backdrop-filter:blur(6px)}
 #ctlLock[hidden]{display:none}
-.ctlcard{width:min(980px,100%);max-height:100%;display:flex;flex-direction:column;gap:12px;padding:22px;border:1px solid var(--line);border-top:3px solid var(--teal);border-radius:6px;background:var(--panel);color:var(--ink);box-shadow:0 24px 70px -20px rgba(0,0,0,.65)}
+.ctlcard{width:min(980px,100%);max-height:100%;gap:12px;padding:22px}
 .ctlhead{display:flex;gap:14px;align-items:flex-start}
 .ctlhead>i[data-ic]{width:34px;height:34px;color:var(--teal);margin-top:2px}
 .ctlhead b{display:block;font-size:19px;font-weight:800;margin-bottom:4px}
@@ -536,7 +536,7 @@ body.viewer .top,body.viewer .fmt,body.viewer #bmSide,body.viewer .stagewrap,bod
 .ctlctl .ib.play:hover{filter:brightness(1.08);background:var(--teal)}
 @media(max-width:640px){.ctlfoot{grid-template-columns:1fr}.ctlctl,.ctlfoot>#ctlTake{grid-column:1;justify-self:center}}
 #ctlPvWrap{display:flex;justify-content:center;min-height:0}
-#ctlPv{position:relative;flex:none;overflow:hidden;background:var(--pbg,#000);border-radius:3px;border:1px solid var(--line)}
+#ctlPv{position:relative;flex:none;overflow:hidden;background:var(--pbg,#000);border-radius:3px}
 #ctlStage{position:absolute;left:0;top:0;transform-origin:0 0;overflow:hidden}
 #ctlScroller{position:relative;will-change:transform}
 #ctlText{width:var(--pw,82%);margin:0 auto;font-family:var(--pfont,sans-serif);font-size:var(--pfs,64px);line-height:var(--plh,1.35);color:var(--pcolor,#fff);word-wrap:break-word}
@@ -1047,7 +1047,7 @@ body.viewer .top,body.viewer .fmt,body.viewer #bmSide,body.viewer .stagewrap,bod
 <div class="pal" id="pal" hidden></div>
 <div id="toast" role="status" aria-live="polite"></div>
 <div id="ctlLock" hidden role="dialog" aria-modal="true" aria-labelledby="ctlTitle">
-  <div class="ctlcard">
+  <div class="modal-card ctlcard">
     <div class="ctlhead"><i data-ic="phone"></i><div><b id="ctlTitle">Управлява се от телефон</b><p class="ctlsub">Текстът, скоростта и размерът идват от приложението на телефона.</p></div></div>
     <div id="ctlPvWrap"><div id="ctlPv"><div id="ctlStage"><div id="ctlScroller"><div id="ctlText"></div></div><div id="ctlMk"></div></div></div></div>
     <div class="ctlfoot">
